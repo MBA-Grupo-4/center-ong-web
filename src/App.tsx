@@ -9,6 +9,7 @@ function App() {
         blue200: "#364FC7",
         orange100: "#E67700",
         gray100: "#626262",
+        purple100: "#862E9C",
       },
     },
   });
