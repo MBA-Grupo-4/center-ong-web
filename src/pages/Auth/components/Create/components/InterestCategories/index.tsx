@@ -2,8 +2,13 @@ import { Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
+import { categories } from "../../../../../../config/category";
 
-const InterestCategories: React.FC = () => {
+type Props = {
+  onPressStep: (type: "next" | "previous") => void;
+};
+
+const InterestCategories: React.FC<Props> = ({ onPressStep }) => {
   return (
     <Flex flexDir={"column"} w={"100%"}>
       <TextRaleway
@@ -18,18 +23,9 @@ const InterestCategories: React.FC = () => {
       </TextRaleway>
 
       <Flex wrap={"wrap"}>
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
-        <CategoryItem />
+        {categories.map((category) => (
+          <CategoryItem key={category.id} data={category} />
+        ))}
       </Flex>
 
       <Flex justifyContent={"space-between"} width={"70%"} mt={"5vh"}>
@@ -39,6 +35,7 @@ const InterestCategories: React.FC = () => {
           w={"45%"}
           borderWidth={"1px"}
           borderColor={"custom.blue200"}
+          onClick={() => onPressStep("previous")}
         >
           <TextRaleway color="custom.blue200">Voltar</TextRaleway>
         </Button>
@@ -49,6 +46,7 @@ const InterestCategories: React.FC = () => {
           _hover={{
             bg: "custom.blue200",
           }}
+          onClick={() => onPressStep("next")}
         >
           <TextRaleway color="white">Próximo</TextRaleway>
         </Button>

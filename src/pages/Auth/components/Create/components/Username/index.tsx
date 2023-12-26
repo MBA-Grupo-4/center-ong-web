@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Flex,
@@ -9,7 +9,21 @@ import {
 } from "@chakra-ui/react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 
-const Username: React.FC = () => {
+type Props = {
+  onPressBack: () => void;
+  onSendData: (name: string) => void;
+};
+
+const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
+  const [name, setName] = useState<string>("");
+
+  const handleData = (): void => {
+    if (name.length < 3) {
+      return;
+    }
+    onSendData(name);
+  };
+
   return (
     <Flex flexDir={"column"} w={"100%"}>
       <TextRaleway
@@ -27,7 +41,11 @@ const Username: React.FC = () => {
         <TextRaleway color={"custom.blue200"} mb={"1vh"}>
           Nome completo
         </TextRaleway>
-        <Input h={"5vh"} placeholder="seu nome" />
+        <Input
+          h={"5vh"}
+          placeholder="seu nome"
+          onChange={(e) => setName(e.target.value)}
+        />
       </Flex>
 
       <FormControl display="flex" alignItems="center">
@@ -49,6 +67,7 @@ const Username: React.FC = () => {
           w={"45%"}
           borderWidth={"1px"}
           borderColor={"custom.blue200"}
+          onClick={() => onPressBack()}
         >
           <TextRaleway color="custom.blue200">Voltar</TextRaleway>
         </Button>
@@ -59,6 +78,7 @@ const Username: React.FC = () => {
           _hover={{
             bg: "custom.blue200",
           }}
+          onClick={() => handleData()}
         >
           <TextRaleway color="white">Próximo</TextRaleway>
         </Button>

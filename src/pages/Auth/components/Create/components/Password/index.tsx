@@ -1,8 +1,23 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 
-const Password: React.FC = () => {
+type Props = {
+  onPressFinish: (data: string) => void;
+};
+
+const Password: React.FC<Props> = ({ onPressFinish }) => {
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const handlePasswords = (): void => {
+    if (password !== confirmPassword) {
+      return;
+    }
+
+    onPressFinish(password);
+  };
+
   return (
     <Flex flexDir={"column"} w={"100%"}>
       <TextRaleway
@@ -20,14 +35,24 @@ const Password: React.FC = () => {
         <TextRaleway color={"custom.blue200"} mb={"1vh"}>
           Senha
         </TextRaleway>
-        <Input h={"5vh"} placeholder="sua senha" type="password" />
+        <Input
+          h={"5vh"}
+          placeholder="sua senha"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </Flex>
 
       <Flex flexDir={"column"} w={"70%"} mb={"2vh"} mt={"2vh"}>
         <TextRaleway color={"custom.blue200"} mb={"1vh"}>
           Confirme a senha
         </TextRaleway>
-        <Input h={"5vh"} placeholder="confirme a senha" type="password" />
+        <Input
+          h={"5vh"}
+          placeholder="confirme a senha"
+          type="password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
       </Flex>
 
       <Flex justifyContent={"space-between"} width={"70%"} mt={"5vh"}>
@@ -38,6 +63,7 @@ const Password: React.FC = () => {
           _hover={{
             bg: "custom.blue200",
           }}
+          onClick={() => handlePasswords()}
         >
           <TextRaleway color="white">Criar conta</TextRaleway>
         </Button>

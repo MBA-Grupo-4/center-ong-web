@@ -1,8 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import TextRaleway from "../../../../../../../components/TextRaleway";
+import { Category } from "../../../../../../../models/Auth";
 
-const CategoryItem: React.FC = () => {
+type Props = {
+  data: Category;
+};
+
+const CategoryItem: React.FC<Props> = ({ data }) => {
   return (
     <Box>
       <TextRaleway
@@ -19,7 +24,7 @@ const CategoryItem: React.FC = () => {
         mb={"1vh"}
         ml={"1vw"}
       >
-        Categoria
+        {data.title}
       </TextRaleway>
     </Box>
   );
