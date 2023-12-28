@@ -4,7 +4,11 @@ import React from "react";
 import TextRaleway from "../../../../components/TextRaleway";
 import LogoIcon from "../../../../assets/logo.png";
 
-const Login: React.FC = () => {
+type Props = {
+  onPressSignup: (value: number) => void;
+};
+
+const Login: React.FC<Props> = ({ onPressSignup }) => {
   return (
     <Flex
       flexDir={"column"}
@@ -80,7 +84,7 @@ const Login: React.FC = () => {
       <Flex mt={"5vh"}>
         <TextRaleway fontSize={"large"}>Não tem conta?</TextRaleway>
         <TextRaleway
-          onClick={() => console.log("cliquei cadastro")}
+          onClick={() => onPressSignup(2)}
           fontSize={"large"}
           ml={"0.4vw"}
           color={"custom.blue100"}

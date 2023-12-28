@@ -13,7 +13,11 @@ import {
   SignupPayload,
 } from "../../../../models/Auth";
 
-const Create: React.FC = () => {
+type Props = {
+  onPressReturn: (value: number) => void;
+};
+
+const Create: React.FC<Props> = ({ onPressReturn }) => {
   const [actualStep, setActualStep] = useState(1);
 
   const [signupData, setSignupData] = useState<SignupPayload>(
@@ -51,7 +55,7 @@ const Create: React.FC = () => {
   };
 
   const handleBackPress = (): void => {
-    console.log("press back");
+    onPressReturn(1);
   };
 
   return (
