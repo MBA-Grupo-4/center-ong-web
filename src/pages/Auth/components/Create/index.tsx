@@ -7,7 +7,11 @@ import PersonalData from "./components/PersonalData";
 import InterestCategories from "./components/InterestCategories";
 import Password from "./components/Password";
 import Stepper from "./components/Stepper";
-import { PersonalDataPayload, SignupPayload } from "../../../../models/Auth";
+import {
+  Category,
+  PersonalDataPayload,
+  SignupPayload,
+} from "../../../../models/Auth";
 
 const Create: React.FC = () => {
   const [actualStep, setActualStep] = useState(1);
@@ -37,6 +41,12 @@ const Create: React.FC = () => {
 
   const handlePasswordData = (password: string): void => {
     const updatedData: SignupPayload = { ...signupData, password };
+    setSignupData(updatedData);
+  };
+
+  const handleCategoriesData = (data: Category[]): void => {
+    const updatedData: SignupPayload = { ...signupData, categories: data };
+
     setSignupData(updatedData);
   };
 
@@ -76,6 +86,7 @@ const Create: React.FC = () => {
       {actualStep === 3 && (
         <InterestCategories
           onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
+          onPressNext={handleCategoriesData}
         />
       )}
       {actualStep === 4 && <Password onPressFinish={handlePasswordData} />}

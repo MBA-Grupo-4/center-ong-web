@@ -1,14 +1,43 @@
 import { Button, Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
 import { categories } from "../../../../../../config/category";
+import { Category } from "../../../../../../models/Auth";
 
 type Props = {
   onPressStep: (type: "next" | "previous") => void;
+  onPressNext: (categories: Category[]) => void;
 };
 
-const InterestCategories: React.FC<Props> = ({ onPressStep }) => {
+const InterestCategories: React.FC<Props> = ({ onPressStep, onPressNext }) => {
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+
+  const handleCategories = (data: Category): void => {
+    const findCategory = selectedCategories.find(
+      (category) => category.id === data.id
+    );
+
+    if (!findCategory) {
+      setSelectedCategories((prev) => [...prev, data]);
+    } else {
+      const updatedCategories = selectedCategories.filter(
+        (category) => category.id !== data.id
+      );
+      setSelectedCategories(updatedCategories);
+    }
+  };
+
+  const handleNextPress = (): void => {
+    if (selectedCategories.length < 1) {
+      return;
+    }
+    onPressStep("next");
+    onPressNext(selectedCategories);
+  };
+
+  useEffect(() => {}, [selectedCategories]);
+
   return (
     <Flex flexDir={"column"} w={"100%"}>
       <TextRaleway
@@ -24,7 +53,14 @@ const InterestCategories: React.FC<Props> = ({ onPressStep }) => {
 
       <Flex wrap={"wrap"}>
         {categories.map((category) => (
-          <CategoryItem key={category.id} data={category} />
+          <CategoryItem
+            key={category.id}
+            data={category}
+            onClick={handleCategories}
+            isSelected={selectedCategories.some(
+              (item) => item.id === category.id
+            )}
+          />
         ))}
       </Flex>
 
@@ -46,7 +82,7 @@ const InterestCategories: React.FC<Props> = ({ onPressStep }) => {
           _hover={{
             bg: "custom.blue200",
           }}
-          onClick={() => onPressStep("next")}
+          onClick={() => handleNextPress()}
         >
           <TextRaleway color="white">Próximo</TextRaleway>
         </Button>

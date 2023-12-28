@@ -5,17 +5,20 @@ import { Category } from "../../../../../../../models/Auth";
 
 type Props = {
   data: Category;
+  onClick: (data: Category) => void;
+  isSelected: boolean;
 };
 
-const CategoryItem: React.FC<Props> = ({ data }) => {
+const CategoryItem: React.FC<Props> = ({ data, onClick, isSelected }) => {
   return (
-    <Box>
+    <Box onClick={() => onClick(data)}>
       <TextRaleway
-        color={"custom.purple100"}
+        color={isSelected ? "white" : "custom.purple100"}
         fontWeight={"medium"}
         fontSize={"14"}
         borderWidth={"1px"}
         borderColor={"#DDDDDD"}
+        bgColor={isSelected ? "custom.yellow100" : "transparent"}
         pt={"1vh"}
         pb={"1vh"}
         pl={"2vw"}
@@ -23,6 +26,8 @@ const CategoryItem: React.FC<Props> = ({ data }) => {
         borderRadius={"5vw"}
         mb={"1vh"}
         ml={"1vw"}
+        transition={!isSelected && "border-color 0.3s ease-in-out"}
+        _hover={{ borderColor: !isSelected && "custom.yellow100" }}
       >
         {data.title}
       </TextRaleway>
