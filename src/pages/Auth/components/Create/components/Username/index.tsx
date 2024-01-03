@@ -87,11 +87,16 @@ const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
       <Flex mt={"5vh"}>
         <TextRaleway fontSize={"large"}>Já tem conta?</TextRaleway>
         <TextRaleway
-          onClick={() => console.log("cliquei cadastro")}
+          onClick={() => onPressBack()}
           fontSize={"large"}
           ml={"0.4vw"}
           color={"custom.blue100"}
           fontWeight={"bold"}
+          cursor={"pointer"}
+          _hover={{
+            color: "custom.blue200",
+          }}
+          transition={"color 0.3s ease-in-out"}
         >
           Entrar
         </TextRaleway>

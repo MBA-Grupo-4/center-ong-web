@@ -31,12 +31,17 @@ const Login: React.FC<Props> = ({ onPressSignup }) => {
       </Flex>
 
       <TextRaleway
-        onClick={() => console.log("cliquei esqueci")}
+        onClick={() => onPressSignup(3)}
         w={"70%"}
         textAlign={"end"}
         marginTop={"15px"}
         mb={"15px"}
         color={"custom.orange100"}
+        _hover={{
+          color: "custom.yellow100",
+        }}
+        transition={"color 0.3s ease-in-out"}
+        cursor={"pointer"}
       >
         Esqueci minha senha
       </TextRaleway>
@@ -89,6 +94,11 @@ const Login: React.FC<Props> = ({ onPressSignup }) => {
           ml={"0.4vw"}
           color={"custom.blue100"}
           fontWeight={"bold"}
+          cursor={"pointer"}
+          _hover={{
+            color: "custom.blue200",
+          }}
+          transition={"color 0.3s ease-in-out"}
         >
           Criar agora
         </TextRaleway>

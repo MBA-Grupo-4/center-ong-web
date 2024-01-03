@@ -28,6 +28,7 @@ const CategoryItem: React.FC<Props> = ({ data, onClick, isSelected }) => {
         ml={"1vw"}
         transition={!isSelected && "border-color 0.3s ease-in-out"}
         _hover={{ borderColor: !isSelected && "custom.yellow100" }}
+        cursor={"pointer"}
       >
         {data.title}
       </TextRaleway>
