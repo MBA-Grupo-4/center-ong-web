@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
@@ -11,6 +11,7 @@ type Props = {
 };
 
 const InterestCategories: React.FC<Props> = ({ onPressStep, onPressNext }) => {
+  const toast = useToast();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const handleCategories = (data: Category): void => {
@@ -30,13 +31,19 @@ const InterestCategories: React.FC<Props> = ({ onPressStep, onPressNext }) => {
 
   const handleNextPress = (): void => {
     if (selectedCategories.length < 1) {
+      toast({
+        title: "Nenhuma categoria selecionada",
+        description:
+          "Selecione uma das categorias acima para receber informações relacionadas a categoria selecionada.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
       return;
     }
     onPressStep("next");
     onPressNext(selectedCategories);
   };
-
-  useEffect(() => {}, [selectedCategories]);
 
   return (
     <Flex flexDir={"column"} w={"100%"}>

@@ -6,22 +6,36 @@ import {
   FormLabel,
   Input,
   Switch,
+  useToast,
 } from "@chakra-ui/react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 
 type Props = {
   onPressBack: () => void;
-  onSendData: (name: string) => void;
+  onSendData: (username: string, isOng: boolean) => void;
 };
 
 const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
-  const [name, setName] = useState<string>("");
+  const toast = useToast();
+  const [username, setUsername] = useState<string>("");
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const handleData = (): void => {
-    if (name.length < 3) {
+    if (username.length < 3) {
+      toast({
+        title: "Nome incompleto",
+        description: "Preencha o nome corretamente!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
       return;
     }
-    onSendData(name);
+    onSendData(username, isChecked);
   };
 
   return (
@@ -44,7 +58,7 @@ const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
         <Input
           h={"5vh"}
           placeholder="seu nome"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </Flex>
 
@@ -57,7 +71,7 @@ const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
         >
           SOU ONG
         </FormLabel>
-        <Switch id="email-alerts" />
+        <Switch onChange={handleChange} isChecked={isChecked} />
       </FormControl>
 
       <Flex justifyContent={"space-between"} width={"70%"} mt={"5vh"}>

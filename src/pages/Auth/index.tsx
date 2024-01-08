@@ -12,7 +12,7 @@ import ResetPassword from "./components/ResetPassword";
 import ChangePassword from "./components/ChangePassword";
 
 const Auth: React.FC = () => {
-  const [renderState, setRenderState] = useState(3);
+  const [renderState, setRenderState] = useState(1);
 
   const handleRenderState = (value: number): void => {
     setRenderState(value);

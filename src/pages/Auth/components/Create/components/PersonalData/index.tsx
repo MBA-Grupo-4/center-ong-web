@@ -1,4 +1,4 @@
-import { Button, Flex, Input, Select } from "@chakra-ui/react";
+import { Button, Flex, Input, Select, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 import { phoneMask } from "../../../../../../utils/masks";
@@ -10,14 +10,15 @@ type Props = {
 };
 
 const PersonalData: React.FC<Props> = ({ onPressStep, handleData }) => {
+  const toast = useToast();
+
   const [email, setEmail] = useState<string>("");
   const [birthdate, setBirthdate] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [gender, setGender] = useState<string>("");
 
   const convertDate = (value: string): void => {
-    const [year, month, day] = value.split("-");
-    setBirthdate(`${day}/${month}/${year}`);
+    setBirthdate(value);
   };
 
   const handleSendData = (): void => {
@@ -27,6 +28,13 @@ const PersonalData: React.FC<Props> = ({ onPressStep, handleData }) => {
     });
 
     if (checkEmptyString) {
+      toast({
+        title: "Dados incorretos",
+        description: "Preencha os dados acima corretamente!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
       return;
     }
     onPressStep("next");

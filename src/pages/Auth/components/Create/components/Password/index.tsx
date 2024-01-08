@@ -1,17 +1,26 @@
-import { Button, Flex, Input } from "@chakra-ui/react";
+import { Button, Flex, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TextRaleway from "../../../../../../components/TextRaleway";
 
 type Props = {
   onPressFinish: (data: string) => void;
+  isLoading: boolean;
 };
 
-const Password: React.FC<Props> = ({ onPressFinish }) => {
+const Password: React.FC<Props> = ({ onPressFinish, isLoading }) => {
+  const toast = useToast();
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const handlePasswords = (): void => {
     if (password !== confirmPassword) {
+      toast({
+        title: "As senhas não são iguais",
+        description: "Verifique as senhas e tente novamente!",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
       return;
     }
 
@@ -64,6 +73,7 @@ const Password: React.FC<Props> = ({ onPressFinish }) => {
             bg: "custom.blue200",
           }}
           onClick={() => handlePasswords()}
+          isLoading={isLoading}
         >
           <TextRaleway color="white">Criar conta</TextRaleway>
         </Button>

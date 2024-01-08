@@ -11,11 +11,12 @@ export type Category = {
 };
 
 export type SignupPayload = {
-  name: string;
+  username: string;
   email: string;
   birthdate: string;
   phone: string;
   gender: string;
   password: string;
-  categories: Category[];
+  isOng: boolean;
+  categories?: Category[];
 };
