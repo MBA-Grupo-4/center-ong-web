@@ -1,14 +1,72 @@
-import { Button, Flex, Image, Input, InputGroup } from "@chakra-ui/react";
-import React from "react";
+import {
+  Button,
+  Flex,
+  Image,
+  Input,
+  InputGroup,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 
 import TextRaleway from "../../../../components/TextRaleway";
 import LogoIcon from "../../../../assets/logo.png";
+import { postLogin } from "../../../../services/User";
+import { BaseUser } from "../../../../models/User";
+import { authRepository } from "../../../../repositories/auth.repository";
 
 type Props = {
   onPressSignup: (value: number) => void;
 };
 
 const Login: React.FC<Props> = ({ onPressSignup }) => {
+  const toast = useToast();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
+  const signIn = async (): Promise<void> => {
+    if (email === "" || password === "") {
+      toast({
+        title: "Dados incorretos.",
+        description:
+          "Preencha os dados corretamente para acessar a plataforma.",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+    setLoading(true);
+    try {
+      const response = await postLogin({ email, password });
+
+      const data: BaseUser = {
+        ...response.data.user,
+        access_token: response.data.access_token,
+      };
+      authRepository.setLoggedUser(data);
+      // router.replace("/home");
+      toast({
+        title: "Acesso permitido!",
+        description: "Seja bem vindo(a) ao Central das Ongs.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      setLoading(false);
+    } catch (err: any) {
+      if (err.response.status === 401) {
+        toast({
+          title: "Erro de acesso!",
+          description: "Usuário ou senha inválidos!",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+      setLoading(false);
+    }
+  };
+
   return (
     <Flex
       flexDir={"column"}
@@ -20,13 +78,23 @@ const Login: React.FC<Props> = ({ onPressSignup }) => {
 
       <Flex flexDir={"column"} w={"70%"} mb={"2vh"}>
         <TextRaleway color={"custom.blue200"}>E-mail</TextRaleway>
-        <Input h={"5vh"} placeholder="seu e-mail" />
+        <Input
+          h={"5vh"}
+          placeholder="seu e-mail"
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+        />
       </Flex>
 
       <Flex flexDir={"column"} w={"70%"}>
         <TextRaleway color={"custom.blue200"}>Senha</TextRaleway>
         <InputGroup>
-          <Input h={"5vh"} placeholder="sua senha" type="password" />
+          <Input
+            h={"5vh"}
+            placeholder="sua senha"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </InputGroup>
       </Flex>
 
@@ -53,37 +121,10 @@ const Login: React.FC<Props> = ({ onPressSignup }) => {
         _hover={{
           bg: "custom.blue200",
         }}
+        onClick={signIn}
+        isLoading={loading}
       >
         <TextRaleway color="white">Entrar</TextRaleway>
-      </Button>
-
-      <TextRaleway mt={"2vh"} mb={"2vh"}>
-        ou
-      </TextRaleway>
-
-      <Button
-        w={"70%"}
-        height={"5vh"}
-        bg="transparent"
-        mb={"2vh"}
-        borderWidth={"1px"}
-      >
-        <TextRaleway color="custom.gray100">Continuar com Facebook</TextRaleway>
-      </Button>
-
-      <Button
-        w={"70%"}
-        bg="transparent"
-        height={"5vh"}
-        mb={"2vh"}
-        borderWidth={"1px"}
-      >
-        <TextRaleway
-          onClick={() => console.log("cliquei")}
-          color="custom.gray100"
-        >
-          Continuar com Google
-        </TextRaleway>
       </Button>
 
       <Flex mt={"5vh"}>

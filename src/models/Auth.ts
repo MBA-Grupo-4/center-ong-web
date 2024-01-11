@@ -1,3 +1,5 @@
+import { BaseUser } from "./User";
+
 export type PersonalDataPayload = {
   email: string;
   birthdate: string;
@@ -19,4 +21,14 @@ export type SignupPayload = {
   password: string;
   isOng: boolean;
   categories?: Category[];
+};
+
+export type LoginPayload = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  user: BaseUser;
+  access_token: string;
 };

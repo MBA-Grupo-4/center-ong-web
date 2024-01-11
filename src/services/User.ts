@@ -1,12 +1,28 @@
 import { post } from "./api";
-import { Login, ResetPasswordPayload, SignupPayload } from "../models/auth";
+import { LoginPayload, LoginResponse, SignupPayload } from "../models/Auth";
 import { APIResponse } from "../models/Request";
 // import { CustomerUser } from '../models/customer';
 import { AxiosResponse } from "axios";
 import { BaseUser } from "../models/User";
 
-export const postLogin = (data: Login): Promise<APIResponse<BaseUser>> =>
-  post({ data, url: "/user/customer" });
+import { authRepository } from "../repositories/auth.repository";
+
+export const isUnauthorized = (error: any) => {
+  return error.message === "Unauthorized";
+};
+
+export const getLoggedUser = () => {
+  return authRepository.getLoggedUser();
+};
+
+export const logoutUser = () => {
+  return authRepository.removeLoggedUser();
+};
+
+export const postLogin = (
+  data: LoginPayload
+): Promise<APIResponse<LoginResponse>> =>
+  post({ data: data, url: "/auth/login" });
 
 export const postCreateUser = (
   data: SignupPayload
@@ -20,10 +36,10 @@ export const postForgotPassword = (
     url: "/passwords/customers/forgot",
   });
 
-export const postResetPassword = (
-  data: ResetPasswordPayload
-): Promise<AxiosResponse<void>> =>
-  post({
-    data: data,
-    url: "/passwords/customers/reset",
-  });
+// export const postResetPassword = (
+//   data: Reset
+// ): Promise<AxiosResponse<void>> =>
+//   post({
+//     data: data,
+//     url: "/passwords/customers/reset",
+//   });

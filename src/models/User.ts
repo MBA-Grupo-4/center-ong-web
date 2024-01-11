@@ -11,4 +11,5 @@ export type BaseUser = {
   dateDeleted: string | null;
   id: number;
   dateInclude: string;
+  access_token: string;
 };
