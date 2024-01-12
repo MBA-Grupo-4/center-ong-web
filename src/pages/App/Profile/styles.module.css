@@ -1,0 +1,13 @@
+.cover img {
+  width: 100%;
+}
+
+.container {
+  width: 1106px;
+  margin: 0 auto;
+}
+
+.page {
+  background-color: #f7f8fc;
+  min-height: 100vh;
+}

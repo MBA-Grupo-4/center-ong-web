@@ -1,0 +1,17 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  padding-top: 46px;
+  background-color: #f7f8fc;
+  min-height: 100vh;
+}
+
+.feed {
+  width: 100%;
+  text-align: left;
+}
+
+.feed h3 {
+  margin-bottom: 10px;
+}

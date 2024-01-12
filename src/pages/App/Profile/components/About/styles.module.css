@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.container h3 {
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  color: #364fc7;
+  text-align: left;
+}
+
+.container p {
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  margin-top: 20px;
+  letter-spacing: 0em;
+  color: #626262;
+  text-align: left;
+}
+
+.posts h3 {
+  color: #9c36b5;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
