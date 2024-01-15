@@ -1,0 +1,38 @@
+.container {
+  width: 40%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container img {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+}
+
+.container input {
+  width: 100%;
+  background-color: #be4bdb;
+  border-radius: 30px;
+  color: #d2d2d2;
+  padding-left: 42px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-family: "Raleway", sans-serif;
+  outline: none;
+  font-weight: 400;
+}
+
+.container input::placeholder {
+  color: #d2d2d2;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  opacity: 1; /* Firefox */
+}
+
+.container input::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: #d2d2d2;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}

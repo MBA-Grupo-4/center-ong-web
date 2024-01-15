@@ -1,0 +1,10 @@
+.container {
+  margin-top: 96px;
+}
+
+.container div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 24px;
+  gap: 8px;
+}

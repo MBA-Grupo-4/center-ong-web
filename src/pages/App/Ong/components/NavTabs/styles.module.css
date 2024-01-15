@@ -1,0 +1,25 @@
+.container {
+  background-color: white;
+  height: 67px;
+  margin-bottom: 49px;
+  display: flex;
+  align-items: center;
+  padding-inline: 24px;
+}
+
+.container ul {
+  display: flex;
+  list-style: none;
+  gap: 53px;
+  align-items: center;
+}
+
+.container ul li {
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #4c6ef5;
+}

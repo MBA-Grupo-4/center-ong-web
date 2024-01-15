@@ -1,0 +1,10 @@
+.container ul {
+  list-style: none;
+}
+
+.container ul li {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,61 @@
+.container {
+  background-color: white;
+  height: 67px;
+  margin-bottom: 49px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 24px;
+}
+
+.container ul {
+  display: flex;
+  list-style: none;
+  gap: 53px;
+  align-items: center;
+}
+
+.container ul li {
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #4c6ef5;
+}
+
+.ongs {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.ongs img {
+  width: 40px;
+  height: 40px;
+}
+
+.ongs > div {
+  display: flex;
+}
+
+.ongs p:nth-of-type(1) {
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #9c36b5;
+}
+
+.ongs p:nth-of-type(2) {
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #FAB005;
+}
