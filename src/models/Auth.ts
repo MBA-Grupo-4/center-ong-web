@@ -20,6 +20,7 @@ export type SignupPayload = {
   categories: Category[];
   username: string;
   aboutme: string;
+  isOng: boolean;
 };
 
 export type ResetPasswordPayload = {

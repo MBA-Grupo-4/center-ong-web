@@ -1,8 +1,8 @@
 import { Button, Flex, Input, Select, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import TextRaleway from "../../../../../../components/TextRaleway";
-import { phoneMask } from "../../../../../../utils/masks";
-import { PersonalDataPayload } from "../../../../../../models/Auth";
+import TextRaleway from "../../../../../components/TextRaleway";
+import { phoneMask } from "../../../../../utils/masks";
+import { PersonalDataPayload } from "../../../../../models/Auth";
 
 type Props = {
   onPressStep: (type: "next" | "previous") => void;

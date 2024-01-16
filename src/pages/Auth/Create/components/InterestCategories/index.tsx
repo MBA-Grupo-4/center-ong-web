@@ -1,9 +1,9 @@
 import { Button, Flex, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import TextRaleway from "../../../../../../components/TextRaleway";
+import TextRaleway from "../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
-import { categories } from "../../../../../../config/category";
-import { Category } from "../../../../../../models/Auth";
+import { categories } from "../../../../../config/category";
+import { Category } from "../../../../../models/Auth";
 
 type Props = {
   onPressStep: (type: "next" | "previous") => void;

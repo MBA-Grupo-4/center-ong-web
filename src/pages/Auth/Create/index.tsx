@@ -1,24 +1,29 @@
 import { Flex, Image, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import LogoIcon from "../../../../assets/logo.png";
-import TextRaleway from "../../../../components/TextRaleway";
+
+import LogoIcon from "../../../assets/logo.png";
+import LoginImage from "../../../assets/login-image.png";
+
+import TextRaleway from "../../../components/TextRaleway";
 import Username from "./components/Username";
 import PersonalData from "./components/PersonalData";
 import InterestCategories from "./components/InterestCategories";
 import Password from "./components/Password";
 import Stepper from "./components/Stepper";
+
 import {
   Category,
   PersonalDataPayload,
   SignupPayload,
-} from "../../../../models/Auth";
-import { postCreateUser } from "../../../../services/User";
+} from "../../../models/Auth";
 
-type Props = {
-  onPressReturn: (value: number) => void;
-};
+import { postCreateUser } from "../../../services/User";
 
-const Create: React.FC<Props> = ({ onPressReturn }) => {
+import DefaultContainer from "../../../components/DefaultContainer";
+import { useNavigate } from "react-router-dom";
+
+const Create: React.FC = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const [actualStep, setActualStep] = useState(1);
@@ -47,7 +52,7 @@ const Create: React.FC<Props> = ({ onPressReturn }) => {
   };
 
   const handleBackPress = (): void => {
-    onPressReturn(1);
+    navigate("/login");
   };
 
   const handlePasswordData = async (password: string): Promise<void> => {
@@ -74,7 +79,7 @@ const Create: React.FC<Props> = ({ onPressReturn }) => {
       setLoading(false);
 
       handleBackPress();
-    } catch (err) {
+    } catch (err: any) {
       console.log(err.response.data.message);
       toast({
         title: "Erro ao criar conta!",
@@ -94,44 +99,47 @@ const Create: React.FC<Props> = ({ onPressReturn }) => {
   };
 
   return (
-    <Flex
-      flexDir={"column"}
-      width={"50%"}
-      marginLeft={"5vw"}
-      alignItems={"center"}
-    >
-      <Image src={LogoIcon} alignSelf={"center"} />
-
-      <TextRaleway
-        color={"custom.blue200"}
-        alignSelf={"flex-start"}
-        fontSize={"x-large"}
-        fontWeight={"bold"}
+    <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
+      <Image src={LoginImage} />
+      <Flex
+        flexDir={"column"}
+        width={"50%"}
+        marginLeft={"5vw"}
+        alignItems={"center"}
       >
-        Criar conta
-      </TextRaleway>
+        <Image src={LogoIcon} alignSelf={"center"} />
 
-      <Stepper activeStep={actualStep} />
+        <TextRaleway
+          color={"custom.blue200"}
+          alignSelf={"flex-start"}
+          fontSize={"x-large"}
+          fontWeight={"bold"}
+        >
+          Criar conta
+        </TextRaleway>
 
-      {actualStep === 1 && (
-        <Username onPressBack={handleBackPress} onSendData={handleName} />
-      )}
-      {actualStep === 2 && (
-        <PersonalData
-          onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
-          handleData={(data: PersonalDataPayload) => handlePersonalData(data)}
-        />
-      )}
-      {actualStep === 3 && (
-        <InterestCategories
-          onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
-          onPressNext={handleCategoriesData}
-        />
-      )}
-      {actualStep === 4 && (
-        <Password onPressFinish={handlePasswordData} isLoading={loading} />
-      )}
-    </Flex>
+        <Stepper activeStep={actualStep} />
+
+        {actualStep === 1 && (
+          <Username onPressBack={handleBackPress} onSendData={handleName} />
+        )}
+        {actualStep === 2 && (
+          <PersonalData
+            onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
+            handleData={(data: PersonalDataPayload) => handlePersonalData(data)}
+          />
+        )}
+        {actualStep === 3 && (
+          <InterestCategories
+            onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
+            onPressNext={handleCategoriesData}
+          />
+        )}
+        {actualStep === 4 && (
+          <Password onPressFinish={handlePasswordData} isLoading={loading} />
+        )}
+      </Flex>
+    </DefaultContainer>
   );
 };
 

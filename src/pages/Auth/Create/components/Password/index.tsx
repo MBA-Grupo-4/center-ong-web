@@ -1,6 +1,6 @@
 import { Button, Flex, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import TextRaleway from "../../../../../../components/TextRaleway";
+import TextRaleway from "../../../../../components/TextRaleway";
 
 type Props = {
   onPressFinish: (data: string) => void;

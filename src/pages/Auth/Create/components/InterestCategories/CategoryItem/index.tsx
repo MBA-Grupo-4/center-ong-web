@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import TextRaleway from "../../../../../../../components/TextRaleway";
-import { Category } from "../../../../../../../models/Auth";
+import TextRaleway from "../../../../../../components/TextRaleway";
+import { Category } from "../../../../../../models/Auth";
 
 type Props = {
   data: Category;

@@ -8,7 +8,7 @@ import {
   Switch,
   useToast,
 } from "@chakra-ui/react";
-import TextRaleway from "../../../../../../components/TextRaleway";
+import TextRaleway from "../../../../../components/TextRaleway";
 
 type Props = {
   onPressBack: () => void;
