@@ -18,4 +18,11 @@ export type SignupPayload = {
   gender: string;
   password: string;
   categories: Category[];
+  username: string;
+  aboutme: string;
+};
+
+export type ResetPasswordPayload = {
+  token: string;
+  newPassword: string;
 };

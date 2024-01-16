@@ -1,5 +1,10 @@
 import { post } from "./api";
-import { LoginPayload, LoginResponse, SignupPayload } from "../models/Auth";
+import {
+  LoginPayload,
+  LoginResponse,
+  ResetPasswordPayload,
+  SignupPayload,
+} from "../models/Auth";
 import { APIResponse } from "../models/Request";
 // import { CustomerUser } from '../models/customer';
 import { AxiosResponse } from "axios";
@@ -24,17 +29,16 @@ export const postLogin = (
 ): Promise<APIResponse<LoginResponse>> =>
   post({ data: data, url: "/auth/login" });
 
+export const postForgotPassword = (email: string): Promise<APIResponse<void>> =>
+  post({ url: "/forgot-password", data: { email } });
+
+export const postResetPassword = (
+  data: ResetPasswordPayload
+): Promise<APIResponse<void>> => post({ url: "/reset-password", data });
+
 export const postCreateUser = (
   data: SignupPayload
 ): Promise<APIResponse<BaseUser>> => post({ data, url: "/users" });
-
-export const postForgotPassword = (
-  email: string
-): Promise<AxiosResponse<void>> =>
-  post({
-    data: { email },
-    url: "/passwords/customers/forgot",
-  });
 
 // export const postResetPassword = (
 //   data: Reset

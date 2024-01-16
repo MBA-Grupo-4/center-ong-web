@@ -1,19 +1,38 @@
-import { Button, Flex, Image, Input } from "@chakra-ui/react";
+import { Button, Flex, Image, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 import TextRaleway from "../../../../components/TextRaleway";
 import LogoIcon from "../../../../assets/logo.png";
+import { postForgotPassword } from "../../../../services/User";
 
 type Props = {
   onPressForgot: (value: number) => void;
 };
 
 const ForgotPassword: React.FC<Props> = ({ onPressForgot }) => {
+  const toast = useToast();
   const [email, setEmail] = useState<string>("");
 
-  const handleForgotPassword = (): void => {
-    // todo send email
-    onPressForgot(4);
+  const handleForgotPassword = async (): Promise<void> => {
+    try {
+      await postForgotPassword(email);
+      toast({
+        title: "Cheque o e-mail cadastrado!",
+        description: "Verifique o e-mail para fazer a alteração da sua senha",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      onPressForgot(5);
+    } catch (err: any) {
+      toast({
+        title: "Verifique os dados.",
+        description: err.response.data.message,
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
 
   return (

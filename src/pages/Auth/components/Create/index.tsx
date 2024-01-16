@@ -52,7 +52,12 @@ const Create: React.FC<Props> = ({ onPressReturn }) => {
 
   const handlePasswordData = async (password: string): Promise<void> => {
     setLoading(true);
-    const updatedData: SignupPayload = { ...signupData, password };
+    const updatedData: SignupPayload = {
+      ...signupData,
+      password,
+      name: signupData.username,
+      aboutme: "Edite as informações do seu perfil.",
+    };
 
     setSignupData(updatedData);
 
@@ -70,6 +75,7 @@ const Create: React.FC<Props> = ({ onPressReturn }) => {
 
       handleBackPress();
     } catch (err) {
+      console.log(err.response.data.message);
       toast({
         title: "Erro ao criar conta!",
         description: "Verifique as senhas e tente novamente!",

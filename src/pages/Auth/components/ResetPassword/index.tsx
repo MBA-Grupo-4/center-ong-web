@@ -61,7 +61,7 @@ const ResetPassword: React.FC<Props> = ({ onPressReset }) => {
           placeholder="seu código"
           onChange={(e) => setCode(e.target.value)}
           value={code}
-          maxLength={4}
+          maxLength={6}
         />
       </Flex>
 

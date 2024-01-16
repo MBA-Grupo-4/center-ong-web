@@ -1,23 +1,44 @@
-import { Button, Flex, Image, Input } from "@chakra-ui/react";
+import { Button, Flex, Image, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 import TextRaleway from "../../../../components/TextRaleway";
 import LogoIcon from "../../../../assets/logo.png";
+import { postResetPassword } from "../../../../services/User";
 
 type Props = {
   onPressChangePassword: (value: number) => void;
 };
 
 const ChangePassword: React.FC<Props> = ({ onPressChangePassword }) => {
+  const toast = useToast();
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [code, setCode] = useState<string>("");
 
-  const handlePasswords = (): void => {
+  const handlePasswords = async (): Promise<void> => {
     if (password !== confirmPassword) {
       return;
     }
 
-    onPressChangePassword(1);
+    try {
+      await postResetPassword({ newPassword: password, token: code });
+      toast({
+        title: "Senha alterada com sucesso!",
+        description: "Faça o login para acessar nossa plataforma novamente.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      onPressChangePassword(1);
+    } catch (err: any) {
+      toast({
+        title: "Verifique os dados.",
+        description: err.response.data.message,
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -48,6 +69,25 @@ const ChangePassword: React.FC<Props> = ({ onPressChangePassword }) => {
       >
         Preencha os campos abaixo com a sua nova senha.
       </TextRaleway>
+
+      <Flex
+        flexDir={"column"}
+        w={"70%"}
+        mb={"2vh"}
+        mt={"2vh"}
+        alignSelf={"flex-start"}
+      >
+        <TextRaleway color={"custom.blue200"} mb={"1vh"}>
+          Código
+        </TextRaleway>
+        <Input
+          h={"5vh"}
+          placeholder="seu código"
+          onChange={(e) => setCode(e.target.value)}
+          value={code}
+          maxLength={6}
+        />
+      </Flex>
 
       <Flex
         flexDir={"column"}

@@ -4,6 +4,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 // import Ong from "./pages/App/Ong";
 import Profile from "./pages/App/Profile";
 import Ong from "./pages/App/Ong";
+import Auth from "./pages/Auth";
 
 function App() {
   const customTheme = extendTheme({
@@ -20,9 +21,9 @@ function App() {
   });
   return (
     <ChakraProvider theme={customTheme}>
-      {/* <Auth /> */}
+      <Auth />
       {/* <Home /> */}
-      <Ong />
+      {/* <Ong /> */}
       {/* {<Profile />} */}
     </ChakraProvider>
   );
