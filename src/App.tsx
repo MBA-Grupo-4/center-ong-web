@@ -1,10 +1,14 @@
-// import Home from "./pages/App/Home";
-// import Auth from "./pages/Auth";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-// import Ong from "./pages/App/Ong";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Profile from "./pages/App/Profile";
 import Ong from "./pages/App/Ong";
-import Auth from "./pages/Auth";
+import Home from "./pages/App/Home";
+import Login from "./pages/Auth/Login";
+import Create from "./pages/Auth/Create";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ChangePassword from "./pages/Auth/ChangePassword";
+import Index from "./pages";
 
 function App() {
   const customTheme = extendTheme({
@@ -19,12 +23,44 @@ function App() {
       },
     },
   });
+  const router = createBrowserRouter([
+    {
+      path: "/feed",
+      element: <Home />,
+    },
+    {
+      path: "/",
+      element: <Index />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Create />,
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+    },
+    {
+      path: "/reset-password",
+      element: <ChangePassword />,
+    },
+    {
+      path: "/ong",
+      element: <Ong />,
+    },
+    {
+      path: "/profile",
+      element: <Profile />,
+    },
+  ]);
+
   return (
     <ChakraProvider theme={customTheme}>
-      <Auth />
-      {/* <Home /> */}
-      {/* <Ong /> */}
-      {/* {<Profile />} */}
+      <RouterProvider router={router} />
     </ChakraProvider>
   );
 }
