@@ -1,11 +1,16 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
+import { authRepository } from "../repositories/auth.repository";
+
 export const API_BASE_URL = "http://localhost:3000";
+
+const user = authRepository.getLoggedUser();
 
 export const request = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     Accept: "application/json",
+    Authorization: user ? `Bearer ${user?.access_token}` : null,
   },
 });
 

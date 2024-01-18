@@ -12,7 +12,7 @@ const Header = () => {
           <div>
             <img src={logo} alt="logo" className={styles.logo} />
           </div>
-          <SearchField />
+          {/* <SearchField /> */}
           <User />
         </nav>
       </header>

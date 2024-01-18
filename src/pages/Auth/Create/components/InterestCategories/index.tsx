@@ -20,7 +20,10 @@ const InterestCategories: React.FC<Props> = ({ onPressStep, onPressNext }) => {
     );
 
     if (!findCategory) {
-      setSelectedCategories((prev) => [...prev, data]);
+      setSelectedCategories((prev) => [
+        ...prev,
+        { name: data.title, id: data.id },
+      ]);
     } else {
       const updatedCategories = selectedCategories.filter(
         (category) => category.id !== data.id
