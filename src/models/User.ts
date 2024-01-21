@@ -1,4 +1,4 @@
-export type BaseUser = {
+export type User = {
   username: string;
   email: string;
   password: string;
@@ -11,5 +11,9 @@ export type BaseUser = {
   dateDeleted: string | null;
   id: number;
   dateInclude: string;
+  following?: User[];
+};
+
+export type BaseUser = User & {
   access_token: string;
 };

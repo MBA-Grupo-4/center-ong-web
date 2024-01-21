@@ -80,10 +80,9 @@ const Create: React.FC = () => {
 
       handleBackPress();
     } catch (err: any) {
-      console.log(err.response.data.message);
       toast({
         title: "Erro ao criar conta!",
-        description: "Verifique as senhas e tente novamente!",
+        description: err.response.data.message,
         status: "error",
         duration: 4000,
         isClosable: true,
@@ -127,12 +126,14 @@ const Create: React.FC = () => {
           <PersonalData
             onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
             handleData={(data: PersonalDataPayload) => handlePersonalData(data)}
+            userPayload={signupData}
           />
         )}
         {actualStep === 3 && (
           <InterestCategories
             onPressStep={(type: "next" | "previous") => handleAccountStep(type)}
             onPressNext={handleCategoriesData}
+            userPayload={signupData}
           />
         )}
         {actualStep === 4 && (

@@ -2,27 +2,39 @@ import { Button, Flex, Input, Select, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TextRaleway from "../../../../../components/TextRaleway";
 import { phoneMask } from "../../../../../utils/masks";
-import { PersonalDataPayload } from "../../../../../models/Auth";
+import { PersonalDataPayload, SignupPayload } from "../../../../../models/Auth";
 
 type Props = {
   onPressStep: (type: "next" | "previous") => void;
   handleData: (data: PersonalDataPayload) => void;
+  userPayload: SignupPayload;
 };
 
-const PersonalData: React.FC<Props> = ({ onPressStep, handleData }) => {
+const PersonalData: React.FC<Props> = ({
+  onPressStep,
+  handleData,
+  userPayload,
+}) => {
   const toast = useToast();
 
   const [email, setEmail] = useState<string>("");
   const [birthdate, setBirthdate] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [gender, setGender] = useState<string>("");
+  const [keyPix, setKeyPix] = useState<string>("");
 
   const convertDate = (value: string): void => {
     setBirthdate(value);
   };
 
   const handleSendData = (): void => {
-    const data = { birthdate, email, gender, phone };
+    const data: PersonalDataPayload = {
+      birthdate,
+      email,
+      gender,
+      phone,
+      keyPix: userPayload.isOng ? keyPix : null,
+    };
     const checkEmptyString = Object.values(data).some(function (string) {
       return string === "";
     });
@@ -93,6 +105,23 @@ const PersonalData: React.FC<Props> = ({ onPressStep, handleData }) => {
           maxLength={15}
         />
       </Flex>
+      {userPayload.isOng ? (
+        <Flex flexDir={"column"} w={"70%"} mb={"2vh"} mt={"2vh"}>
+          <TextRaleway color={"custom.blue200"} mb={"1vh"}>
+            Chave PIX
+          </TextRaleway>
+          <Input
+            h={"5vh"}
+            placeholder="sua chave"
+            onChange={(e) => {
+              setKeyPix(e.target.value);
+            }}
+            value={keyPix}
+          />
+        </Flex>
+      ) : (
+        <></>
+      )}
 
       <Flex flexDir={"column"} w={"70%"} mb={"2vh"} mt={"2vh"}>
         <TextRaleway color={"custom.blue200"} mb={"1vh"}>

@@ -1,18 +1,34 @@
+import { Tooltip } from "@chakra-ui/react";
 import ongIcon from "../../../../../assets/ong-icon.png";
 import styles from "./styles.module.css";
+import { User } from "../../../../../models/User";
 
-const MyNGOs = () => {
+type Props = {
+  followedNGOS: User[] | never;
+  onClickNGO: (ongId: number) => void;
+};
+
+const MyNGOs = ({ followedNGOS, onClickNGO }: Props) => {
   return (
     <div className={styles.container}>
       <h3 className="subtitle">Minhas Ongs</h3>
+
       <div>
-        <img src={ongIcon} alt="ong" width="40" height="40" />
-        <img src={ongIcon} alt="ong" width="40" height="40" />
-        <img src={ongIcon} alt="ong" width="40" height="40" />
-        <img src={ongIcon} alt="ong" width="40" height="40" />
-        <img src={ongIcon} alt="ong" width="40" height="40" />
-        <img src={ongIcon} alt="ong" width="40" height="40" />
-        <img src={ongIcon} alt="ong" width="40" height="40" />
+        {followedNGOS ? (
+          followedNGOS.map((followed) => (
+            <Tooltip label={followed.username}>
+              <img
+                src={ongIcon}
+                alt="ong"
+                width="40"
+                height="40"
+                onClick={() => onClickNGO(followed.id)}
+              />
+            </Tooltip>
+          ))
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
