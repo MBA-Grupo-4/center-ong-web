@@ -1,19 +1,27 @@
 import { ActivePages } from "../..";
 import styles from "./styles.module.css";
 import ongLogo from "../../../../../assets/ong-logo.svg";
+import { User } from "../../../../../models/User";
+import { Tooltip } from "@chakra-ui/react";
 
 type NavTabsProps = {
   setActivePage: React.Dispatch<React.SetStateAction<ActivePages>>;
+  followingOngs: User[];
+  onClickNGO: (ongId: number) => void;
 };
 
-const NavTabs = ({ setActivePage }: NavTabsProps) => {
+const NavTabs = ({
+  setActivePage,
+  followingOngs,
+  onClickNGO,
+}: NavTabsProps) => {
   return (
     <nav className={styles.container}>
       <ul>
         <li role="button" onClick={() => setActivePage("about")}>
           Sobre
         </li>
-        <li role="button" onClick={() => setActivePage("photos")}>
+        {/* <li role="button" onClick={() => setActivePage("photos")}>
           Fotos
         </li>
         <li role="button" onClick={() => setActivePage("videos")}>
@@ -21,27 +29,23 @@ const NavTabs = ({ setActivePage }: NavTabsProps) => {
         </li>
         <li role="button" onClick={() => setActivePage("contribuitions")}>
           Contribuições
-        </li>
+        </li> */}
       </ul>
 
       <div className={styles.ongs}>
         <p>Minhas ONGS</p>
         <div>
-          <div>
-            <img src={ongLogo} alt="ong" />
-          </div>
-          <div>
-            <img src={ongLogo} alt="ong" />
-          </div>
-          <div>
-            <img src={ongLogo} alt="ong" />
-          </div>
-          <div>
-            <img src={ongLogo} alt="ong" />
-          </div>
-          <div>
-            <img src={ongLogo} alt="ong" />
-          </div>
+          {followingOngs.map((followed) => (
+            <Tooltip label={followed.username}>
+              <img
+                src={ongLogo}
+                alt="ong"
+                width="40"
+                height="40"
+                onClick={() => onClickNGO(followed.id)}
+              />
+            </Tooltip>
+          ))}
         </div>
         <p>Ver todas</p>
       </div>

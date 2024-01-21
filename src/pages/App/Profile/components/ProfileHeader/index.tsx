@@ -1,7 +1,12 @@
 import styles from "./styles.module.css";
-import avatar from "../../../../../assets/avatar.svg";
+import avatar from "../../../../../assets/avatar.png";
+import { BaseUser } from "../../../../../models/User";
 
-const ProfileHeader = () => {
+type Props = {
+  data: BaseUser;
+};
+
+const ProfileHeader = ({ data }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.logoAndName}>
@@ -9,14 +14,12 @@ const ProfileHeader = () => {
           <img src={avatar} alt="avatar" className={styles.avatar} />
         </div>
         <div>
-          <p>Nome Usuário</p>
+          <p>{data.username}</p>
           <p>@nomeusuário</p>
         </div>
       </div>
       <div className={styles.buttons}>
-        <button type="button">
-          Editar Perfil
-        </button>
+        <button type="button">Editar Perfil</button>
       </div>
     </div>
   );
