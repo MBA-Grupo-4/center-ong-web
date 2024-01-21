@@ -42,7 +42,7 @@ const ChangePassword: React.FC = () => {
         duration: 4000,
         isClosable: true,
       });
-      navigate("login");
+      navigate("/login");
     } catch (err: any) {
       toast({
         title: "Verifique os dados.",
