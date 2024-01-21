@@ -14,9 +14,10 @@ import avatarimg from "../../../../../assets/avatar.png";
 import { BasePost } from "../../../../../models/Feed";
 import TextRaleway from "../../../../../components/TextRaleway";
 import { User } from "../../../../../models/User";
+import { SharedPost } from "../../../../../models/Share";
 
 type PostProps = {
-  data: BasePost;
+  data: SharedPost;
   onClickComment: (postId: number, comment: string) => void;
   isFollowing: boolean;
   onClickFollow: (ong: User) => void;
@@ -45,14 +46,14 @@ const Post = ({
           <img src={ongIcon} alt="ong" width="60" height="60" />
         </div>
         <div>
-          <p>{data.author?.username}</p>
-          <p>{data.content}</p>
+          <p>{data.post.author.username}</p>
+          <p>{data.post.content}</p>
         </div>
       </header>
 
-      {data.image && (
+      {data.post.image && (
         <div className={styles.body}>
-          <img src={data.image} alt="mock" />
+          <img src={data.post.image} alt="mock" />
         </div>
       )}
 
@@ -62,13 +63,13 @@ const Post = ({
             <img
               src={rateFullIcon}
               alt="rate"
-              onClick={() => onClickUnfollow(data.author)}
+              onClick={() => onClickUnfollow(data.post.author)}
             />
           ) : (
             <img
               src={rateIcon}
               alt="rate"
-              onClick={() => onClickFollow(data.author)}
+              onClick={() => onClickFollow(data.post.author)}
             />
           )}
         </div>
@@ -87,8 +88,8 @@ const Post = ({
         </div>
       </div>
 
-      {data.comments ? (
-        data.comments.map((comment) => (
+      {data.post.comments ? (
+        data.post.comments.map((comment) => (
           <Flex mt={"3vh"} mb={"2vh"} alignItems={"center"}>
             <Image
               src={avatarimg}
@@ -98,9 +99,10 @@ const Post = ({
               mr={"1vw"}
             />
             <Flex flexDir={"column"}>
-              <TextRaleway fontWeight={"bold"}>
+              {/* TODO UNCOMMENT THIS */}
+              {/* <TextRaleway fontWeight={"bold"}>
                 {comment.userCommentId.username}
-              </TextRaleway>
+              </TextRaleway> */}
               <TextRaleway>{comment.text}</TextRaleway>
             </Flex>
           </Flex>

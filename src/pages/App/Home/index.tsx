@@ -80,6 +80,14 @@ const Home = () => {
     handleSuggestedOngs();
   }, []);
 
+  const handleHomePress = (): void => {
+    navigate("/feed");
+  };
+
+  const handleProfilePress = (): void => {
+    navigate("/profile");
+  };
+
   const handleCommentPost = async (
     postId: number,
     comment: string
@@ -162,7 +170,6 @@ const Home = () => {
   };
 
   const handleFollowedNGOClick = (ongId: number): void => {
-    console.log(ongId);
     navigate(`/ong/${ongId}`);
   };
 
@@ -171,7 +178,10 @@ const Home = () => {
       <Header />
       <main className={styles.main}>
         <aside>
-          <SideNav />
+          <SideNav
+            onClickHome={handleHomePress}
+            onClickProfile={handleProfilePress}
+          />
           <MyNGOs
             followedNGOS={user?.following || []}
             onClickNGO={(ongId: number) => handleFollowedNGOClick(ongId)}

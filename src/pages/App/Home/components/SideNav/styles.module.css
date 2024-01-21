@@ -8,3 +8,7 @@
   gap: 17px;
   margin-bottom: 2rem;
 }
+
+.option {
+  cursor: pointer;
+}
