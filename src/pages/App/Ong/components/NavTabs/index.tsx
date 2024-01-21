@@ -12,7 +12,7 @@ const NavTabs = ({ setActivePage }: NavTabsProps) => {
         <li role="button" onClick={() => setActivePage("about")}>
           Sobre
         </li>
-        <li role="button" onClick={() => setActivePage("goals")}>
+        {/* <li role="button" onClick={() => setActivePage("goals")}>
           Metas
         </li>
         <li role="button" onClick={() => setActivePage("publications")}>
@@ -23,7 +23,7 @@ const NavTabs = ({ setActivePage }: NavTabsProps) => {
         </li>
         <li role="button" onClick={() => setActivePage("videos")}>
           Vídeos
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

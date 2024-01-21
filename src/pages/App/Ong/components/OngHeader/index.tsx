@@ -2,8 +2,13 @@ import ongLogo from "../../../../../assets/ong-logo.svg";
 import styles from "./styles.module.css";
 import blueStar from "../../../../../assets/blue-star.svg";
 import whiteHeart from "../../../../../assets/white-heart.svg";
+import { User } from "../../../../../models/User";
 
-const OngHeader = () => {
+type Props = {
+  data: User;
+};
+
+const OngHeader = ({ data }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.logoAndName}>
@@ -11,7 +16,7 @@ const OngHeader = () => {
           <img src={ongLogo} alt="logo" className={styles.logo} />
         </div>
         <div>
-          <p>Nome ONG</p>
+          <p>{data?.username}</p>
           <p>@nomedaong</p>
         </div>
       </div>

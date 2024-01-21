@@ -7,7 +7,6 @@ import React, { useEffect, useState } from "react";
 import About from "./components/About";
 import { getSharedPosts, postShare } from "../../../services/Share";
 import { authRepository } from "../../../repositories/auth.repository";
-import { BasePost } from "../../../models/Feed";
 import { useToast } from "@chakra-ui/react";
 import {
   delUnfollowOng,
