@@ -10,7 +10,7 @@ import React, { useState } from "react";
 
 import TextRaleway from "../../../components/TextRaleway";
 import LogoIcon from "../../../assets/logo.png";
-import { postLogin } from "../../../services/User";
+import { getUser, postLogin } from "../../../services/User";
 import { BaseUser } from "../../../models/User";
 import { authRepository } from "../../../repositories/auth.repository";
 import DefaultContainer from "../../../components/DefaultContainer";
@@ -46,6 +46,13 @@ const Login: React.FC = () => {
         access_token: response.data.access_token,
       };
       authRepository.setLoggedUser(data);
+
+      const userData = await getUser(response.data.user.id);
+
+      data.following = userData.data.following;
+
+      authRepository.setLoggedUser(data);
+
       navigate("/feed");
       toast({
         title: "Acesso permitido!",

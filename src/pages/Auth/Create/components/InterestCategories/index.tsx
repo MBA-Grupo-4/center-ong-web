@@ -3,14 +3,19 @@ import React, { useEffect, useState } from "react";
 import TextRaleway from "../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
 import { categories } from "../../../../../config/category";
-import { Category } from "../../../../../models/Auth";
+import { Category, SignupPayload } from "../../../../../models/Auth";
 
 type Props = {
   onPressStep: (type: "next" | "previous") => void;
   onPressNext: (categories: Category[]) => void;
+  userPayload: SignupPayload;
 };
 
-const InterestCategories: React.FC<Props> = ({ onPressStep, onPressNext }) => {
+const InterestCategories: React.FC<Props> = ({
+  onPressStep,
+  onPressNext,
+  userPayload,
+}) => {
   const toast = useToast();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
@@ -59,6 +64,20 @@ const InterestCategories: React.FC<Props> = ({ onPressStep, onPressNext }) => {
         mt={"2vh"}
       >
         Categorias de interesse
+      </TextRaleway>
+
+      <TextRaleway
+        fontWeight={"regular"}
+        color={"custom.gray100"}
+        fontSize={"18"}
+        alignSelf={"flex-start"}
+        mb={"6vh"}
+        mt={"2vh"}
+      >
+        Selecione abaixo as categorias que{" "}
+        {userPayload.isOng
+          ? "sua ONG se encaixa."
+          : "você se interessa para contribuir."}
       </TextRaleway>
 
       <Flex wrap={"wrap"}>
