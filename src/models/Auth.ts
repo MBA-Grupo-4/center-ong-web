@@ -1,8 +1,11 @@
+import { User } from "./User";
+
 export type PersonalDataPayload = {
   email: string;
   birthdate: string;
   phone: string;
   gender: string;
+  keyPix: string | null;
 };
 
 export type Category = {
@@ -26,4 +29,9 @@ export type SignupPayload = {
 export type ResetPasswordPayload = {
   token: string;
   newPassword: string;
+};
+
+export type LoginResponse = {
+  access_token: string;
+  user: User;
 };

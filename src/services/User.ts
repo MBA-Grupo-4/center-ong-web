@@ -1,4 +1,4 @@
-import { post } from "./api";
+import { get, post } from "./api";
 import {
   LoginPayload,
   LoginResponse,
@@ -7,8 +7,8 @@ import {
 } from "../models/Auth";
 import { APIResponse } from "../models/Request";
 // import { CustomerUser } from '../models/customer';
-import { AxiosResponse } from "axios";
-import { BaseUser } from "../models/User";
+
+import { BaseUser, User } from "../models/User";
 
 import { authRepository } from "../repositories/auth.repository";
 
@@ -40,10 +40,8 @@ export const postCreateUser = (
   data: SignupPayload
 ): Promise<APIResponse<BaseUser>> => post({ data, url: "/users" });
 
-// export const postResetPassword = (
-//   data: Reset
-// ): Promise<AxiosResponse<void>> =>
-//   post({
-//     data: data,
-//     url: "/passwords/customers/reset",
-//   });
+export const getUser = (userId: number): Promise<APIResponse<User>> =>
+  get({ url: `/users/${userId}` });
+
+export const getUsers = (): Promise<APIResponse<User[]>> =>
+  get({ url: "/users" });
