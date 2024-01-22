@@ -30,7 +30,7 @@ const CategoryItem: React.FC<Props> = ({ data, onClick, isSelected }) => {
         _hover={{ borderColor: !isSelected && "custom.yellow100" }}
         cursor={"pointer"}
       >
-        {data.title}
+        {data.name}
       </TextRaleway>
     </Box>
   );

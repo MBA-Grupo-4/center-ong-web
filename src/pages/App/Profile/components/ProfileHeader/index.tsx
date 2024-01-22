@@ -4,9 +4,10 @@ import { BaseUser } from "../../../../../models/User";
 
 type Props = {
   data: BaseUser;
+  onPressEdit: () => void;
 };
 
-const ProfileHeader = ({ data }: Props) => {
+const ProfileHeader = ({ data, onPressEdit }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.logoAndName}>
@@ -18,9 +19,9 @@ const ProfileHeader = ({ data }: Props) => {
           <p>@{data.username}</p>
         </div>
       </div>
-      {/* <div className={styles.buttons}>
+      <div className={styles.buttons} onClick={onPressEdit}>
         <button type="button">Editar Perfil</button>
-      </div> */}
+      </div>
     </div>
   );
 };

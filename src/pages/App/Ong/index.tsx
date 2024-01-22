@@ -5,9 +5,9 @@ import OngHeader from "./components/OngHeader";
 import NavTabs from "./components/NavTabs";
 import React, { useEffect, useState } from "react";
 import About from "./components/About";
-import { BasePost } from "../../../models/Feed";
+
 import { authRepository } from "../../../repositories/auth.repository";
-import { getSharedPosts, postShare } from "../../../services/Share";
+import { postShare } from "../../../services/Share";
 import { getUser } from "../../../services/User";
 import { useToast } from "@chakra-ui/react";
 import {
@@ -18,6 +18,7 @@ import {
 } from "../../../services/Feed";
 import { User } from "../../../models/User";
 import { useNavigate, useParams } from "react-router-dom";
+import DonateModal from "./components/DonateModal";
 
 export type ActivePages =
   | "about"
@@ -34,23 +35,27 @@ const Ong = () => {
   const { ongId } = useParams();
 
   const [ongData, setOngData] = useState<User>();
+  const [displayDonateModal, setDisplayDonateModal] = useState(false);
+
+  const handleDisplayDonateModal = (): void => {
+    setDisplayDonateModal(!displayDonateModal);
+  };
 
   const handleSharedPosts = async (): Promise<void> => {
     const numberOng = Number(ongId);
-    if (user) {
-      try {
-        const response = await getUser(numberOng);
-        const postsResponse = await getTimeline(numberOng);
-        const data: User = { ...response.data, posts: postsResponse.data };
-        setOngData(data);
-      } catch (err) {
-        console.log("load shared Post err", err);
-      }
+
+    try {
+      const response = await getUser(numberOng);
+      const postsResponse = await getTimeline(numberOng);
+      const data: User = { ...response.data, posts: postsResponse.data };
+      setOngData(data);
+    } catch (err) {
+      console.log("load shared Post err", err);
     }
   };
 
   const handleCheckIsFollowingOng = (): boolean => {
-    if (user?.following?.some((follow) => follow.id === ongData?.id)) {
+    if (ongData?.following?.some((follow) => follow.id === ongData?.id)) {
       return true;
     } else {
       return false;
@@ -98,7 +103,6 @@ const Ong = () => {
 
   const toggleUnfollowOption = async (ong: User): Promise<void> => {
     const result = confirm("Você quer deixar de seguir a ONG?");
-    // todo check why is not following
     if (result) {
       await handleUnfollowOng(ong);
     }
@@ -108,7 +112,7 @@ const Ong = () => {
     if (!user) {
       return;
     }
-    const findPreviousPost = postsShared.find((post) => post.id === postId);
+    const findPreviousPost = ongData?.posts?.find((post) => post.id === postId);
     if (findPreviousPost) {
       toast({
         title: "Não é possível compartilhar este post.",
@@ -153,6 +157,7 @@ const Ong = () => {
           data={ongData}
           onPressFollow={handleFollowOng}
           onPressUnfollow={toggleUnfollowOption}
+          onPressDonate={handleDisplayDonateModal}
         />
         <NavTabs setActivePage={setActivePage} />
         {activePage === "about" && (
@@ -162,7 +167,14 @@ const Ong = () => {
             onClickShare={handlePressShare}
             onFollowOng={handleFollowOng}
             onUnfollowOng={toggleUnfollowOption}
-            userPosts={ongData?.posts}
+            user={ongData}
+          />
+        )}
+        {ongData?.isOng && (
+          <DonateModal
+            isOpen={displayDonateModal}
+            onClose={handleDisplayDonateModal}
+            ongData={ongData!}
           />
         )}
       </div>

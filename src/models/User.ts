@@ -1,6 +1,8 @@
+import { Category } from "./Auth";
 import { BasePost } from "./Feed";
 
 export type User = {
+  aboutme: string;
   username: string;
   name: string;
   email: string;
@@ -9,10 +11,12 @@ export type User = {
   birthdate: string;
   telephone: string;
   gender: string;
-  categories: string[];
+  keyPix: string;
+  categories: Category[];
   dateUpdated: string | null;
   dateDeleted: string | null;
   id: number;
+  category?: Category;
   dateInclude: string;
   following?: User[];
   posts?: BasePost[];
@@ -20,4 +24,9 @@ export type User = {
 
 export type BaseUser = User & {
   access_token: string;
+};
+
+export type UserEditPayload = {
+  name?: string;
+  aboutme?: string;
 };
