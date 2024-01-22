@@ -10,10 +10,17 @@ type Props = {
   data: User;
   onPressFollow: (ong: User) => void;
   onPressUnfollow: (ong: User) => void;
+  onPressDonate: () => void;
 };
 
-const OngHeader = ({ data, onPressFollow, onPressUnfollow }: Props) => {
+const OngHeader = ({
+  data,
+  onPressFollow,
+  onPressUnfollow,
+  onPressDonate,
+}: Props) => {
   const user = authRepository.getLoggedUser();
+
   return (
     <div className={styles.container}>
       <div className={styles.logoAndName}>
@@ -46,10 +53,14 @@ const OngHeader = ({ data, onPressFollow, onPressUnfollow }: Props) => {
           </>
         )}
 
-        <button type="button">
-          <img src={whiteHeart} alt="donate" />
-          Doar
-        </button>
+        {data?.isOng ? (
+          <button type="button" onClick={onPressDonate}>
+            <img src={whiteHeart} alt="donate" />
+            Doar
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
