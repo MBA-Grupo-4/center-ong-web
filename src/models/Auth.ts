@@ -9,8 +9,11 @@ export type PersonalDataPayload = {
 };
 
 export type Category = {
-  title: string;
+  name: string;
   id: string;
+  dateInclude: string;
+  dateUpdated: string;
+  dateDeleted: string;
 };
 
 export type SignupPayload = {
@@ -21,6 +24,7 @@ export type SignupPayload = {
   gender: string;
   password: string;
   categories: Category[];
+  category?: Category | null;
   username: string;
   aboutme: string;
   isOng: boolean;

@@ -1,4 +1,4 @@
-import { get, post } from "./api";
+import { get, patch, post, put } from "./api";
 import {
   LoginPayload,
   LoginResponse,
@@ -8,7 +8,7 @@ import {
 import { APIResponse } from "../models/Request";
 // import { CustomerUser } from '../models/customer';
 
-import { BaseUser, User } from "../models/User";
+import { BaseUser, User, UserEditPayload } from "../models/User";
 
 import { authRepository } from "../repositories/auth.repository";
 
@@ -45,3 +45,7 @@ export const getUser = (userId: number): Promise<APIResponse<User>> =>
 
 export const getUsers = (): Promise<APIResponse<User[]>> =>
   get({ url: "/users" });
+
+export const patchUpdateUser = (
+  data: UserEditPayload
+): Promise<APIResponse<BaseUser>> => patch({ data, url: "/users" });
