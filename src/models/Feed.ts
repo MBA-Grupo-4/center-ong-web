@@ -19,6 +19,7 @@ export type BasePost = {
   likes: number;
   comments: BaseComment[];
   author: User;
+  liked?: boolean;
 };
 
 export type BasePostPayload = {

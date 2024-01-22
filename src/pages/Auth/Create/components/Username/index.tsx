@@ -12,12 +12,13 @@ import TextRaleway from "../../../../../components/TextRaleway";
 
 type Props = {
   onPressBack: () => void;
-  onSendData: (username: string, isOng: boolean) => void;
+  onSendData: (username: string, name: string, isOng: boolean) => void;
 };
 
 const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
   const toast = useToast();
   const [username, setUsername] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
@@ -25,17 +26,17 @@ const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
   };
 
   const handleData = (): void => {
-    if (username.length < 3) {
+    if (name.length < 3 || username.length < 3) {
       toast({
-        title: "Nome incompleto",
-        description: "Preencha o nome corretamente!",
+        title: "Dados incompletos!",
+        description: "Preencha os dados abaixo de forma correta",
         status: "warning",
         duration: 5000,
         isClosable: true,
       });
       return;
     }
-    onSendData(username, isChecked);
+    onSendData(username, name, isChecked);
   };
 
   return (
@@ -58,6 +59,17 @@ const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
         <Input
           h={"5vh"}
           placeholder="seu nome"
+          onChange={(e) => setName(e.target.value)}
+        />
+      </Flex>
+
+      <Flex flexDir={"column"} w={"70%"} mb={"2vh"} mt={"2vh"}>
+        <TextRaleway color={"custom.blue200"} mb={"1vh"}>
+          Nome de usuário
+        </TextRaleway>
+        <Input
+          h={"5vh"}
+          placeholder="seu username"
           onChange={(e) => setUsername(e.target.value)}
         />
       </Flex>

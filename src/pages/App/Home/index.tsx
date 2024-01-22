@@ -9,6 +9,8 @@ import {
   getFeed,
   postComment,
   postFollowOng,
+  postLike,
+  postUnlike,
 } from "../../../services/Feed";
 import { getLoggedUser, getUsers } from "../../../services/User";
 import { useEffect, useState } from "react";
@@ -173,6 +175,24 @@ const Home = () => {
     navigate(`/ong/${ongId}`);
   };
 
+  const handlePostLike = async (postId: number): Promise<void> => {
+    try {
+      await postLike(postId);
+      location.reload();
+    } catch (err) {
+      console.log("err post like", err);
+    }
+  };
+
+  const handlePostDislike = async (postId: number): Promise<void> => {
+    try {
+      await postUnlike(postId);
+      location.reload();
+    } catch (err) {
+      console.log("err post like", err);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -202,6 +222,8 @@ const Home = () => {
                   onClickFollow={(ong: User) => handleFollowOng(ong)}
                   onClickUnfollow={(ong: User) => toggleUnfollowOption(ong)}
                   onPressShare={(postId: number) => handlePressShare(postId)}
+                  onClickLike={(postId: number) => handlePostLike(postId)}
+                  onClickUnlike={(postId: number) => handlePostDislike(postId)}
                 />
               ))}
             </>

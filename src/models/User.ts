@@ -1,5 +1,8 @@
+import { BasePost } from "./Feed";
+
 export type User = {
   username: string;
+  name: string;
   email: string;
   password: string;
   isOng: boolean;
@@ -12,6 +15,7 @@ export type User = {
   id: number;
   dateInclude: string;
   following?: User[];
+  posts?: BasePost[];
 };
 
 export type BaseUser = User & {

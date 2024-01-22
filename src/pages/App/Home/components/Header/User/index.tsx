@@ -11,15 +11,32 @@ const User = () => {
     authRepository.removeLoggedUser();
     navigate("/login");
   };
+
+  const handleSelfNavigate = (): void => {
+    navigate("/profile");
+  };
+
   return (
-    <div
-      className={styles.container}
-      onClick={() => {
-        handleLogout();
-      }}
-    >
-      <img src={avatar} alt="avatar" width="39" height="39" />
-      <p>{user?.username}</p>
+    <div className={styles.container}>
+      <img
+        src={avatar}
+        alt="avatar"
+        width="39"
+        height="39"
+        className={styles.pointer}
+        onClick={() => handleSelfNavigate()}
+      />
+      <p className={styles.pointer} onClick={() => handleSelfNavigate()}>
+        {user?.name}
+      </p>
+      <span
+        className={styles.logout}
+        onClick={() => {
+          handleLogout();
+        }}
+      >
+        Sair
+      </span>
     </div>
   );
 };

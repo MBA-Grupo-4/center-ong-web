@@ -24,6 +24,14 @@ export const logoutUser = () => {
 export const getFeed = (userId: number): Promise<APIResponse<BasePost[]>> =>
   get({ url: "/feed", params: { userId } });
 
+export const getTimeline = (userId: number): Promise<APIResponse<BasePost[]>> =>
+  get({
+    url: "/feed/timeline",
+    params: {
+      userId: userId,
+    },
+  });
+
 export const postComment = (
   postId: number,
   data: PostComentPayload
@@ -36,3 +44,9 @@ export const postFollowOng = (
 export const delUnfollowOng = (
   data: PostONGFollowPayload
 ): Promise<APIResponse<void>> => del({ url: "users/unfollow", data });
+
+export const postLike = (postId: number): Promise<APIResponse<void>> =>
+  post({ url: `/feed/${postId}/like` });
+
+export const postUnlike = (postId: number): Promise<APIResponse<void>> =>
+  post({ url: `/feed/${postId}/unlike` });

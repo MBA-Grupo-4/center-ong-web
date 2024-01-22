@@ -14,13 +14,13 @@ const ProfileHeader = ({ data }: Props) => {
           <img src={avatar} alt="avatar" className={styles.avatar} />
         </div>
         <div>
-          <p>{data.username}</p>
-          <p>@nomeusuário</p>
+          <p>{data.name}</p>
+          <p>@{data.username}</p>
         </div>
       </div>
-      <div className={styles.buttons}>
+      {/* <div className={styles.buttons}>
         <button type="button">Editar Perfil</button>
-      </div>
+      </div> */}
     </div>
   );
 };

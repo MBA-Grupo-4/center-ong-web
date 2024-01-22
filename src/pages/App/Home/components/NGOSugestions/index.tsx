@@ -18,56 +18,11 @@ const NGOSugestions = ({ suggestedNGOS, onClickNGO }: Props) => {
               <img src={ongIcon} alt="ong" width="32" height="32" />
             </div>
             <div>
-              <p>{suggestion.username}</p>
-              {/* <span>@nomedaong</span> */}
+              <p>{suggestion.name}</p>
+              <span>@{suggestion.username}</span>
             </div>
           </li>
         ))}
-        {/* <li>
-          <div>
-            <img src={ongIcon} alt="ong" width="32" height="32" />
-          </div>
-          <div>
-            <p>Nome ONG</p>
-            <span>@nomedaong</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src={ongIcon} alt="ong" width="32" height="32" />
-          </div>
-          <div>
-            <p>Nome ONG</p>
-            <span>@nomedaong</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src={ongIcon} alt="ong" width="32" height="32" />
-          </div>
-          <div>
-            <p>Nome ONG</p>
-            <span>@nomedaong</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src={ongIcon} alt="ong" width="32" height="32" />
-          </div>
-          <div>
-            <p>Nome ONG</p>
-            <span>@nomedaong</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <img src={ongIcon} alt="ong" width="32" height="32" />
-          </div>
-          <div>
-            <p>Nome ONG</p>
-            <span>@nomedaong</span>
-          </div>
-        </li> */}
       </ul>
     </div>
   );

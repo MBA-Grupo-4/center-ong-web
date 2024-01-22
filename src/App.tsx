@@ -9,6 +9,7 @@ import Create from "./pages/Auth/Create";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import ChangePassword from "./pages/Auth/ChangePassword";
 import Index from "./pages";
+import { AuthProvider } from "./hooks/auth";
 
 function App() {
   const customTheme = extendTheme({
@@ -61,7 +62,9 @@ function App() {
 
   return (
     <ChakraProvider theme={customTheme}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </ChakraProvider>
   );
 }

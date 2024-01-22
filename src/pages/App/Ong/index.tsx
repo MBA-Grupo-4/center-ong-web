@@ -12,6 +12,7 @@ import { getUser } from "../../../services/User";
 import { useToast } from "@chakra-ui/react";
 import {
   delUnfollowOng,
+  getTimeline,
   postComment,
   postFollowOng,
 } from "../../../services/Feed";
@@ -35,11 +36,13 @@ const Ong = () => {
   const [ongData, setOngData] = useState<User>();
 
   const handleSharedPosts = async (): Promise<void> => {
+    const numberOng = Number(ongId);
     if (user) {
       try {
-        const response = await getUser(ongId);
-        console.log(response.data);
-        setOngData(response.data);
+        const response = await getUser(numberOng);
+        const postsResponse = await getTimeline(numberOng);
+        const data: User = { ...response.data, posts: postsResponse.data };
+        setOngData(data);
       } catch (err) {
         console.log("load shared Post err", err);
       }
@@ -75,6 +78,7 @@ const Ong = () => {
     if (user) {
       try {
         await postFollowOng({ followerId: user?.id, userId: ong.id });
+        location.reload();
       } catch (err) {
         console.log("err follow Ong", err);
       }
@@ -145,7 +149,11 @@ const Ong = () => {
         <img src={ongCover} alt="cover" />
       </div>
       <div className={styles.container}>
-        <OngHeader data={ongData} />
+        <OngHeader
+          data={ongData}
+          onPressFollow={handleFollowOng}
+          onPressUnfollow={toggleUnfollowOption}
+        />
         <NavTabs setActivePage={setActivePage} />
         {activePage === "about" && (
           <About

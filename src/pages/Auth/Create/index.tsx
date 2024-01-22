@@ -40,9 +40,9 @@ const Create: React.FC = () => {
     }
   };
 
-  const handleName = (username: string, isOng: boolean): void => {
+  const handleName = (username: string, name: string, isOng: boolean): void => {
     handleAccountStep("next");
-    const data: SignupPayload = { ...signupData, username, isOng };
+    const data: SignupPayload = { ...signupData, username, isOng, name };
     setSignupData(data);
   };
 
@@ -60,7 +60,6 @@ const Create: React.FC = () => {
     const updatedData: SignupPayload = {
       ...signupData,
       password,
-      name: signupData.username,
       aboutme: "Edite as informações do seu perfil.",
     };
 

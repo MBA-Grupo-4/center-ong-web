@@ -9,6 +9,7 @@ import rateFullIcon from "../../../../../assets/rate-full-star.svg";
 import comentIcon from "../../../../../assets/coment.svg";
 import orderIcon from "../../../../../assets/order.svg";
 import likeIcon from "../../../../../assets/like.svg";
+import likedIcon from "../../../../../assets/liked.svg";
 import avatarimg from "../../../../../assets/avatar.png";
 
 import { BasePost } from "../../../../../models/Feed";
@@ -22,6 +23,8 @@ type PostProps = {
   onClickFollow: (ong: User) => void;
   onClickUnfollow: (ong: User) => void;
   onPressShare: (postId: number) => void;
+  onClickLike?: (postId: number) => void;
+  onClickUnlike?: (postId: number) => void;
 };
 
 const Post = ({
@@ -31,6 +34,8 @@ const Post = ({
   onClickFollow,
   onClickUnfollow,
   onPressShare,
+  onClickLike,
+  onClickUnlike,
 }: PostProps) => {
   const [comment, setComment] = useState<string>("");
 
@@ -45,7 +50,7 @@ const Post = ({
           <img src={ongIcon} alt="ong" width="60" height="60" />
         </div>
         <div>
-          <p>{data.author?.username}</p>
+          <p>{data.author?.name}</p>
           <p>{data.content}</p>
         </div>
       </header>
@@ -82,9 +87,15 @@ const Post = ({
             onClick={() => onPressShare(data.id)}
           />
         </div>
-        <div role="button">
-          <img src={likeIcon} alt="like" />
-        </div>
+        {data.liked ? (
+          <div role="button" onClick={() => onClickUnlike(data.id)}>
+            <img src={likedIcon} alt="like" />
+          </div>
+        ) : (
+          <div role="button" onClick={() => onClickLike(data.id)}>
+            <img src={likeIcon} alt="like" />
+          </div>
+        )}
       </div>
 
       {data.comments ? (
@@ -98,8 +109,13 @@ const Post = ({
               mr={"1vw"}
             />
             <Flex flexDir={"column"}>
-              <TextRaleway fontWeight={"bold"}>
-                {comment.userCommentId.username}
+              <TextRaleway
+                fontWeight={"bold"}
+                textColor={"#000"}
+                color="#000"
+                className={styles.colorBlack}
+              >
+                {comment?.userCommentId?.name}
               </TextRaleway>
               <TextRaleway>{comment.text}</TextRaleway>
             </Flex>

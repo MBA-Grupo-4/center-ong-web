@@ -21,7 +21,7 @@ export type ActivePages = "about" | "contribuitions" | "photos" | "videos";
 
 const Profile = () => {
   const user = authRepository.getLoggedUser();
-  const toast = useToast({});
+  const toast = useToast();
   const navigate = useNavigate();
 
   const [activePage, setActivePage] = React.useState<ActivePages>("about");

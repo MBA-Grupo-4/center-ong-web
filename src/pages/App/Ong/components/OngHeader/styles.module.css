@@ -66,6 +66,26 @@
   text-align: center;
 }
 
+.buttonFollow {
+  color: #ffffff !important;
+  border: 2px solid #3b5bdb;
+  background-color: #3b5bdb;
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  width: 180px;
+  height: 40px;
+  line-height: 24px;
+  border-radius: 6px;
+  letter-spacing: 0em;
+  justify-content: center;
+  gap: 8px;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
 .buttons > button:nth-of-type(2) {
   display: flex;
   align-items: center;

@@ -36,7 +36,7 @@ const NavTabs = ({
         <p>Minhas ONGS</p>
         <div>
           {followingOngs.map((followed) => (
-            <Tooltip label={followed.username}>
+            <Tooltip label={followed.name}>
               <img
                 src={ongLogo}
                 alt="ong"
@@ -47,7 +47,7 @@ const NavTabs = ({
             </Tooltip>
           ))}
         </div>
-        <p>Ver todas</p>
+        {/* <p>Ver todas</p> */}
       </div>
     </nav>
   );

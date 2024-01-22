@@ -16,13 +16,14 @@ const MyNGOs = ({ followedNGOS, onClickNGO }: Props) => {
       <div>
         {followedNGOS ? (
           followedNGOS.map((followed) => (
-            <Tooltip label={followed.username}>
+            <Tooltip label={followed.name}>
               <img
                 src={ongIcon}
                 alt="ong"
                 width="40"
                 height="40"
                 onClick={() => onClickNGO(followed.id)}
+                className={styles.pointer}
               />
             </Tooltip>
           ))

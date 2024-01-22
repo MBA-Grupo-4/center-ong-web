@@ -46,7 +46,7 @@ const Post = ({
           <img src={ongIcon} alt="ong" width="60" height="60" />
         </div>
         <div>
-          <p>{data.post.author.username}</p>
+          <p>{data.post.author.name}</p>
           <p>{data.post.content}</p>
         </div>
       </header>
@@ -99,10 +99,9 @@ const Post = ({
               mr={"1vw"}
             />
             <Flex flexDir={"column"}>
-              {/* TODO UNCOMMENT THIS */}
-              {/* <TextRaleway fontWeight={"bold"}>
-                {comment.userCommentId.username}
-              </TextRaleway> */}
+              <TextRaleway fontWeight={"bold"}>
+                {comment.userCommentId.name}
+              </TextRaleway>
               <TextRaleway>{comment.text}</TextRaleway>
             </Flex>
           </Flex>
