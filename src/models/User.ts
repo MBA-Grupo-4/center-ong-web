@@ -20,6 +20,7 @@ export type User = {
   dateInclude: string;
   following?: User[];
   posts?: BasePost[];
+  profilepic?: string;
 };
 
 export type BaseUser = User & {
@@ -29,4 +30,5 @@ export type BaseUser = User & {
 export type UserEditPayload = {
   name?: string;
   aboutme?: string;
+  profilepic?: string;
 };
