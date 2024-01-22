@@ -90,8 +90,15 @@ const Create: React.FC = () => {
     }
   };
 
-  const handleCategoriesData = (data: Category[]): void => {
-    const updatedData: SignupPayload = { ...signupData, categories: data };
+  const handleCategoriesData = (
+    data: Category[],
+    ongCategory: Category
+  ): void => {
+    const updatedData: SignupPayload = {
+      ...signupData,
+      categories: data,
+      category: signupData.isOng ? ongCategory : null,
+    };
 
     setSignupData(updatedData);
   };
