@@ -16,6 +16,7 @@ import {
 import { User } from "../../../models/User";
 import { SharedPost } from "../../../models/Share";
 import { useNavigate } from "react-router-dom";
+import EditModal from "./components/EditModal";
 
 export type ActivePages = "about" | "contribuitions" | "photos" | "videos";
 
@@ -26,6 +27,8 @@ const Profile = () => {
 
   const [activePage, setActivePage] = React.useState<ActivePages>("about");
   const [postsShared, setPostsShared] = useState<SharedPost[]>([]);
+
+  const [displayEditModal, setDisplayEditModal] = useState(false);
 
   const handleSharedPosts = async (): Promise<void> => {
     if (user) {
@@ -133,6 +136,10 @@ const Profile = () => {
     navigate(`/ong/${ongId}`);
   };
 
+  const handleDisplayEditModal = (): void => {
+    setDisplayEditModal(!displayEditModal);
+  };
+
   return (
     <div className={styles.page}>
       <Header />
@@ -140,7 +147,7 @@ const Profile = () => {
         <img src={profileCover} alt="cover" />
       </div>
       <div className={styles.container}>
-        <ProfileHeader data={user} />
+        <ProfileHeader data={user} onPressEdit={handleDisplayEditModal} />
         <NavTabs
           setActivePage={setActivePage}
           followingOngs={user?.following || []}
@@ -154,8 +161,10 @@ const Profile = () => {
             onFollowOng={handleFollowOng}
             onUnfollowOng={toggleUnfollowOption}
             userPosts={postsShared}
+            aboutme={user?.aboutme}
           />
         )}
+        <EditModal isOpen={displayEditModal} onClose={handleDisplayEditModal} />
       </div>
     </div>
   );
