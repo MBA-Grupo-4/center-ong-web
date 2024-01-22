@@ -17,6 +17,8 @@ import TextRaleway from "../../../../../components/TextRaleway";
 import { authRepository } from "../../../../../repositories/auth.repository";
 import { UserEditPayload } from "../../../../../models/User";
 import { patchUpdateUser } from "../../../../../services/User";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../../firebase";
 
 type Props = {
   isOpen: boolean;
@@ -29,7 +31,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [aboutme, setAboutme] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
+  const [profilePicture, setProfilePicture] = useState<File>("");
 
   useEffect(() => {
     if (user) {
@@ -41,10 +43,10 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event?.target?.files[0];
-      //   setSelectedFile(file);
+      setProfilePicture(file);
 
       // Aqui você pode acessar o caminho relativo do arquivo (representação segura)
-      console.log("Caminho do arquivo:", file.webkitRelativePath);
+      console.log("Caminho do arquivo:", file);
 
       // Aqui você pode adicionar lógica adicional, se necessário}
     }
@@ -62,11 +64,20 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
       data.aboutme = aboutme;
     }
 
+    if (profilePicture) {
+      const storageRef = ref(storage, `images/${profilePicture.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, profilePicture);
+      const imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
+      data.profilepic = imageUrl;
+    }
+
     try {
       await patchUpdateUser(data);
 
+      console.log(data);
+
       setLoading(false);
-      location.reload();
+      // location.reload();
     } catch (err) {
       console.log("err edit profile", err);
       setLoading(false);
@@ -110,7 +121,6 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <Input
                 h={"5vh"}
                 placeholder="sua senha"
-                value={profilePicture}
                 type="file"
                 size={"lg"}
                 pt={"2"}

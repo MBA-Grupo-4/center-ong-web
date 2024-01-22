@@ -1,6 +1,7 @@
 .avatar {
   width: 142px !important;
   height: 142px !important;
+  border-radius: 250px;
 }
 
 .logoAndName {
