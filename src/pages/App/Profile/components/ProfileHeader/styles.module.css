@@ -83,3 +83,36 @@
   letter-spacing: 0em;
   text-align: center;
 }
+
+/* CSS DO MODAL DE EDIÇÃO */
+
+.editar-perfil-button {
+}
+
+.css-x9dxnn {
+ box-shadow: 0 0 40px red !important;
+}
+
+.modal-header {
+}
+
+.modal-body {
+}
+
+.fechar-button {
+}
+
+.salvar-alteracoes-button {
+}
+
+.input-novo-nome {
+}
+
+.textarea-sobre-mim {
+}
+
+.input-file {
+}
+
+.nova-foto-perfil {
+}
