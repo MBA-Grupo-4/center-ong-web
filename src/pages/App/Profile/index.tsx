@@ -133,7 +133,9 @@ const Profile = () => {
     if (!user) {
       return;
     }
-    const findPreviousPost = postsShared.find((post) => post.id === postId);
+    const findPreviousPost = postsShared.find(
+      (post) => post.post.id === postId
+    );
     if (findPreviousPost) {
       toast({
         title: "Não é possível compartilhar este post.",

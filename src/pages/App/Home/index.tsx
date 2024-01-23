@@ -20,16 +20,15 @@ import { User } from "../../../models/User";
 import { getSharedPosts, postShare } from "../../../services/Share";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { SharedPost } from "../../../models/Share";
 
 const Home = () => {
   const user = getLoggedUser();
   const toast = useToast();
   const navigate = useNavigate();
 
-  console.log(user);
-
   const [userFeed, setUserFeed] = useState<BasePost[]>([]);
-  const [postsShared, setPostsShared] = useState<BasePost[]>([]);
+  const [postsShared, setPostsShared] = useState<SharedPost[]>([]);
   const [ngoSuggestion, setNgoSuggestion] = useState<User[]>([]);
 
   const handleLoadFeed = async (): Promise<void> => {
@@ -147,7 +146,9 @@ const Home = () => {
   };
 
   const handlePressShare = async (postId: number): Promise<void> => {
-    const findPreviousPost = postsShared.find((post) => post.id === postId);
+    const findPreviousPost = postsShared.find(
+      (post) => post.post.id === postId
+    );
     if (findPreviousPost) {
       toast({
         title: "Não é possível compartilhar este post.",
