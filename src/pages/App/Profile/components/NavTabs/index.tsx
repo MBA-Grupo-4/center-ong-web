@@ -27,11 +27,11 @@ const NavTabs = ({
           Sobre
         </li>
         <li role="button" onClick={() => onClickPostRender("shared")}>
-          Posts Compartilhados
+          Publicações Compartilhados
         </li>
         {user?.isOng ? (
           <li role="button" onClick={() => onClickPostRender("created")}>
-            Posts Criados
+            Publicações Criadas
           </li>
         ) : (
           <></>

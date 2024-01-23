@@ -60,7 +60,9 @@ const Home = () => {
     if (user) {
       try {
         const response = await getUsers();
-        const ongsOnly = response.data.filter((ong) => ong.isOng === true);
+        const ongsOnly = response.data.filter(
+          (ong) => ong.isOng === true && ong.id !== user.id
+        );
         const unfollowedOngs = ongsOnly.filter((ong) => {
           const isFollowed = user.following?.some(
             (follow) => follow.id === ong.id

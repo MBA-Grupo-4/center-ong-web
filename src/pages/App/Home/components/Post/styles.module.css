@@ -36,6 +36,10 @@
   min-width: 40px;
 }
 
+.postAuthorimg {
+  border-radius: 120px;
+}
+
 .body {
   margin-top: 1rem;
 }

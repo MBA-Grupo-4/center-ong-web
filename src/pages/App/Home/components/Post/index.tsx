@@ -55,6 +55,7 @@ const Post = ({
             alt="ong"
             width="60"
             height="60"
+            className={styles.postAuthorimg}
           />
         </div>
         <div>

@@ -38,7 +38,8 @@ const About = ({
       </div>
       <div className={styles.posts}>
         <h3>
-          Posts {renderPostOption === "created" ? "Criados" : "Compartilhados"}
+          Publicações{" "}
+          {renderPostOption === "created" ? "Criadas" : "Compartilhadas"}
         </h3>
 
         {renderPostOption === "shared"
