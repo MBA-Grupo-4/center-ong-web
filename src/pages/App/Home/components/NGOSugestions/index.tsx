@@ -22,7 +22,7 @@ const NGOSugestions = ({ suggestedNGOS, onClickNGO }: Props) => {
                 height="32"
               />
             </div>
-            <div>
+            <div onClick={() => onClickNGO(suggestion.id)}>
               <p>{suggestion.name}</p>
               <span>@{suggestion.username}</span>
             </div>

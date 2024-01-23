@@ -21,11 +21,14 @@ import { getSharedPosts, postShare } from "../../../services/Share";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SharedPost } from "../../../models/Share";
+import { useAuth } from "../../../hooks/auth";
 
 const Home = () => {
   const user = getLoggedUser();
   const toast = useToast();
   const navigate = useNavigate();
+
+  const { userData } = useAuth();
 
   const [userFeed, setUserFeed] = useState<BasePost[]>([]);
   const [postsShared, setPostsShared] = useState<SharedPost[]>([]);
@@ -34,7 +37,7 @@ const Home = () => {
   const handleLoadFeed = async (): Promise<void> => {
     if (user) {
       try {
-        const response = await getFeed(user?.id);
+        const response = await getFeed(userData?.id);
 
         setUserFeed(response.data);
       } catch (err) {
@@ -47,7 +50,7 @@ const Home = () => {
   const handleSharedPosts = async (): Promise<void> => {
     if (user) {
       try {
-        const response = await getSharedPosts(user?.id);
+        const response = await getSharedPosts(userData?.id);
         setPostsShared(response.data);
       } catch (err) {
         console.log("load shared Post err", err);
