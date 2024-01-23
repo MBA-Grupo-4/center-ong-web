@@ -28,6 +28,7 @@ export type BaseUser = User & {
 };
 
 export type UserEditPayload = {
+  id: number;
   name?: string;
   aboutme?: string;
   profilepic?: string;

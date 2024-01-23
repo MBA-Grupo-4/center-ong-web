@@ -10,6 +10,7 @@ import { authRepository } from "../../../repositories/auth.repository";
 import { useToast } from "@chakra-ui/react";
 import {
   delUnfollowOng,
+  getTimeline,
   postComment,
   postFollowOng,
 } from "../../../services/Feed";
@@ -17,27 +18,58 @@ import { User } from "../../../models/User";
 import { SharedPost } from "../../../models/Share";
 import { useNavigate } from "react-router-dom";
 import EditModal from "./components/EditModal";
+import { BasePost } from "../../../models/Feed";
+import CreatePostModal from "./components/CreatePostModal";
+import { useAuth } from "../../../hooks/auth";
 
 export type ActivePages = "about" | "contribuitions" | "photos" | "videos";
+
+export type ActivePostOption = "shared" | "created";
 
 const Profile = () => {
   const user = authRepository.getLoggedUser();
   const toast = useToast();
   const navigate = useNavigate();
 
+  const { userData } = useAuth();
+
   const [activePage, setActivePage] = React.useState<ActivePages>("about");
+  const [activePostOption, setActivePostOption] =
+    useState<ActivePostOption>("shared");
+
   const [postsShared, setPostsShared] = useState<SharedPost[]>([]);
+  const [postsCreated, setPostsCreated] = useState<BasePost[]>([]);
 
   const [displayEditModal, setDisplayEditModal] = useState(false);
+  const [displayPostModal, setDisplayPostModal] = useState(false);
+
+  const handlePostOption = (type: ActivePostOption): void => {
+    setActivePostOption(type);
+  };
+
+  const handleDisplayPostModal = (): void => {
+    setDisplayPostModal(!displayPostModal);
+  };
 
   const handleSharedPosts = async (): Promise<void> => {
     if (user) {
       try {
         const response = await getSharedPosts(user?.id);
+        data = response.data;
 
-        setPostsShared(response.data);
+        setPostsShared(data);
       } catch (err) {
         console.log("load shared Post err", err);
+      }
+    }
+  };
+  const handleCreatedPosts = async (): Promise<void> => {
+    if (user) {
+      try {
+        const response = await getTimeline(user?.id);
+        setPostsCreated(response.data);
+      } catch (err) {
+        console.log("load created Post err", err);
       }
     }
   };
@@ -130,6 +162,7 @@ const Profile = () => {
 
   useEffect(() => {
     handleSharedPosts();
+    handleCreatedPosts();
   }, []);
 
   const handleFollowedNGOClick = (ongId: number): void => {
@@ -147,11 +180,16 @@ const Profile = () => {
         <img src={profileCover} alt="cover" />
       </div>
       <div className={styles.container}>
-        <ProfileHeader data={user} onPressEdit={handleDisplayEditModal} />
+        <ProfileHeader
+          data={userData}
+          onPressEdit={handleDisplayEditModal}
+          onPressCreate={handleDisplayPostModal}
+        />
         <NavTabs
           setActivePage={setActivePage}
           followingOngs={user?.following || []}
           onClickNGO={(ongId: number) => handleFollowedNGOClick(ongId)}
+          onClickPostRender={handlePostOption}
         />
         {activePage === "about" && (
           <About
@@ -162,9 +200,15 @@ const Profile = () => {
             onUnfollowOng={toggleUnfollowOption}
             userPosts={postsShared}
             aboutme={user?.aboutme}
+            renderPostOption={activePostOption}
+            createdPosts={postsCreated}
           />
         )}
         <EditModal isOpen={displayEditModal} onClose={handleDisplayEditModal} />
+        <CreatePostModal
+          isOpen={displayPostModal}
+          onClose={handleDisplayPostModal}
+        />
       </div>
     </div>
   );

@@ -12,9 +12,12 @@ import { APIResponse } from "../models/Request";
 import { AxiosError } from "axios";
 import { authRepository } from "../repositories/auth.repository";
 import { getUser } from "../services/User";
+import { User } from "../models/User";
 
 type AuthProps = {
   getUserData: () => Promise<void>;
+  userData: User;
+  setUserData: React.Dispatch<React.SetStateAction<User>>;
 };
 
 type AuthProviderProps = {
@@ -26,17 +29,20 @@ const AuthContext = createContext<AuthProps>({} as AuthProps);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const user = authRepository.getLoggedUser();
 
+  const [userData, setUserData] = useState<User>({} as User);
+
   const getUserData = async (): Promise<void> => {
-    console.log("oie xD");
     if (!user) {
       return;
     }
     try {
       const response = await getUser(user.id);
+      setUserData(response.data);
       authRepository.setLoggedUser({
         ...response.data,
         access_token: user.access_token,
       });
+      console.log(response.data);
     } catch (err) {
       console.log("err update User", err);
     }
@@ -50,6 +56,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     <AuthContext.Provider
       value={{
         getUserData,
+        userData,
+        setUserData,
       }}
     >
       {children}
