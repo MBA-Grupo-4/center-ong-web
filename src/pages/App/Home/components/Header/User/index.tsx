@@ -17,7 +17,6 @@ const User = () => {
   const handleSelfNavigate = (): void => {
     navigate("/profile");
   };
-  console.log(user?.isOng);
 
   return (
     <div className={styles.container}>

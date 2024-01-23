@@ -73,7 +73,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
           data.profilepic = imageUrl;
         });
       }
-      console.log(data);
+
       await patchUpdateUser(data);
 
       setLoading(false);

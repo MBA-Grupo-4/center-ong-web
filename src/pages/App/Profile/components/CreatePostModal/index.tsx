@@ -12,6 +12,7 @@ import {
   Flex,
   Input,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import TextRaleway from "../../../../../components/TextRaleway";
 import { authRepository } from "../../../../../repositories/auth.repository";
@@ -29,9 +30,10 @@ type Props = {
 
 const CreatePostModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const user = authRepository.getLoggedUser();
+  const toast = useToast();
 
   const [content, setContent] = useState("");
-  const [postPicture, setPostPicture] = useState<File>("");
+  const [postPicture, setPostPicture] = useState<File>();
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,12 +44,13 @@ const CreatePostModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   const handleCreatePost = async (): Promise<void> => {
-    if (!user) {
+    if (!user || content.length < 1) {
       return;
     }
     const data: CreatePostPayload = {
       userId: user.id,
       content,
+      image: null,
     };
     setLoading(true);
 

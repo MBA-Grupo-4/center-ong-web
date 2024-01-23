@@ -49,11 +49,11 @@ const Login: React.FC = () => {
       };
       authRepository.setLoggedUser(data);
 
-      const userData = await getUser(response.data.user.id);
+      // const userData = await getUser(response.data.user.id);
 
-      data.following = userData.data.following;
+      // data.following = userData.data.following;
 
-      authRepository.setLoggedUser(data);
+      // authRepository.setLoggedUser(data);
 
       setUserData(data);
 

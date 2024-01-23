@@ -45,6 +45,6 @@ export type SharePostPayload = {
 
 export type CreatePostPayload = {
   content: string;
-  image?: string;
+  image?: string | null;
   userId: number;
 };

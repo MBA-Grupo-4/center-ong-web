@@ -43,7 +43,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       response.data.profilepic = response.data.profilepic || avatar;
       setUserData(response.data);
 
-      console.log(response.data.profilepic);
       authRepository.setLoggedUser({
         ...response.data,
         access_token: user.access_token,
