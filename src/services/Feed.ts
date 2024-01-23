@@ -5,6 +5,7 @@ import { APIResponse } from "../models/Request";
 import { authRepository } from "../repositories/auth.repository";
 import {
   BasePost,
+  CreatePostPayload,
   PostComentPayload,
   PostONGFollowPayload,
 } from "../models/Feed";
@@ -50,3 +51,7 @@ export const postLike = (postId: number): Promise<APIResponse<void>> =>
 
 export const postUnlike = (postId: number): Promise<APIResponse<void>> =>
   post({ url: `/feed/${postId}/unlike` });
+
+export const postCreatePost = (
+  data: CreatePostPayload
+): Promise<APIResponse<BasePost>> => post({ url: `/feed/create`, data });
