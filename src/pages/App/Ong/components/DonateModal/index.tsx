@@ -74,7 +74,7 @@ const DonateModal: React.FC<Props> = ({ isOpen, onClose, ongData }) => {
               textAlign={"center"}
               mt={"2vh"}
             >
-              ou se preferir, você também pode digitar a chave de e-mail
+              ou se preferir, você também pode digitar a chave pix
             </TextRaleway>
 
             <TextRaleway
