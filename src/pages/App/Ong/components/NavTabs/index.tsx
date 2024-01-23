@@ -1,6 +1,6 @@
 import { ActivePages } from "../..";
 import styles from "./styles.module.css";
-
+import style from "../../../../styles.module.css";
 type NavTabsProps = {
   setActivePage: React.Dispatch<React.SetStateAction<ActivePages>>;
 };

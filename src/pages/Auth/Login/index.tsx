@@ -19,6 +19,9 @@ import LoginImage from "../../../assets/login-image.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/auth";
 
+
+import styles from "../styles.module.css";
+
 const Login: React.FC = () => {
   const toast = useToast();
   const navigate = useNavigate();
@@ -90,8 +93,8 @@ const Login: React.FC = () => {
 
   return (
     <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
-      <Image src={LoginImage} />
-      <Flex
+      <Image className={styles.loginImg} src={LoginImage} />
+      <Flex  className={styles.animationLogin}
         flexDir={"column"}
         width={"50%"}
         marginLeft={"5vw"}
@@ -121,7 +124,7 @@ const Login: React.FC = () => {
           </InputGroup>
         </Flex>
 
-        <TextRaleway
+        <TextRaleway className={styles.loginPassword}
           onClick={() => handleForgotPassword()}
           w={"70%"}
           textAlign={"end"}
@@ -137,7 +140,7 @@ const Login: React.FC = () => {
           Esqueci minha senha
         </TextRaleway>
 
-        <Button
+        <Button className={styles.loginButton}
           w={"70%"}
           bg="custom.blue100"
           height={"5vh"}
@@ -152,7 +155,7 @@ const Login: React.FC = () => {
 
         <Flex mt={"5vh"}>
           <TextRaleway fontSize={"large"}>Não tem conta?</TextRaleway>
-          <TextRaleway
+          <TextRaleway className={styles.loginCriar}
             onClick={() => handleSignupClick()}
             fontSize={"large"}
             ml={"0.4vw"}

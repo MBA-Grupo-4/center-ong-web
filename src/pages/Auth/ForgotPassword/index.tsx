@@ -6,7 +6,7 @@ import DefaultContainer from "../../../components/DefaultContainer";
 
 import LogoIcon from "../../../assets/logo.png";
 import LoginImage from "../../../assets/login-image.png";
-
+import styles from "../styles.module.css";
 import { postForgotPassword } from "../../../services/User";
 
 const ForgotPassword: React.FC = () => {
@@ -37,7 +37,7 @@ const ForgotPassword: React.FC = () => {
   return (
     <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
       <Image src={LoginImage} />
-      <Flex
+      <Flex className={styles.animationLogin}
         flexDir={"column"}
         width={"50%"}
         marginLeft={"5vw"}

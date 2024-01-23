@@ -1,5 +1,6 @@
 import { ActivePages } from "../..";
 import styles from "./styles.module.css";
+import style from "../../../styles.module.css";
 import ongLogo from "../../../../../assets/ong-logo.svg";
 import { User } from "../../../../../models/User";
 import { Tooltip } from "@chakra-ui/react";
@@ -21,7 +22,7 @@ const NavTabs = ({
   const user = authRepository.getLoggedUser();
 
   return (
-    <nav className={styles.container}>
+    <nav className={`${styles.container} ${style.menuProfile}`}>
       <ul>
         <li role="button" onClick={() => setActivePage("about")}>
           Sobre

@@ -19,7 +19,7 @@ import { UserEditPayload } from "../../../../../models/User";
 import { patchUpdateUser } from "../../../../../services/User";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../../firebase";
-
+import style from "../../../styles.module.css";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -118,7 +118,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <TextRaleway color={"custom.blue200"} mb={"1vh"}>
                 Foto de perfil
               </TextRaleway>
-              <Input
+              <Input className={style.fotoModal}
                 h={"5vh"}
                 placeholder="sua senha"
                 type="file"
@@ -131,7 +131,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button
+            <Button className={style.buttonModal2}
               bg="custom.blue100"
               _hover={{
                 bg: "custom.blue200",
@@ -141,7 +141,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
             >
               <TextRaleway color="white">Editar Perfil</TextRaleway>
             </Button>
-            <Button variant="ghost" onClick={onClose}>
+            <Button className={style.buttonModal} variant="ghost" onClick={onClose}>
               Cancelar
             </Button>
           </ModalFooter>

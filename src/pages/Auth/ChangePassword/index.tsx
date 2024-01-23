@@ -6,7 +6,7 @@ import DefaultContainer from "../../../components/DefaultContainer";
 
 import LogoIcon from "../../../assets/logo.png";
 import LoginImage from "../../../assets/login-image.png";
-
+import styles from "./styles.module.css";
 import { postResetPassword } from "../../../services/User";
 import { useLocation, useNavigate } from "react-router-dom";
 

@@ -1,6 +1,7 @@
 import Header from "../Home/components/Header";
 import profileCover from "../../../assets/profile-cover.jpg";
 import styles from "./styles.module.css";
+import style from "../styles.module.css";
 import ProfileHeader from "./components/ProfileHeader";
 import NavTabs from "./components/NavTabs";
 import React, { useEffect, useState } from "react";
@@ -176,7 +177,7 @@ const Profile = () => {
     <div className={styles.page}>
       <Header />
       <div className={styles.cover}>
-        <img src={profileCover} alt="cover" />
+        <img className={style.bgProfile} src={profileCover} alt="cover" />
       </div>
       <div className={styles.container}>
         <ProfileHeader

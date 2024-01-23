@@ -1,4 +1,5 @@
 import styles from "./styles.module.css";
+import style from "../../../styles.module.css";
 import avatar from "../../../../../assets/avatar.png";
 import { BaseUser } from "../../../../../models/User";
 import { Button, Flex, Image } from "@chakra-ui/react";
@@ -11,13 +12,13 @@ type Props = {
 
 const ProfileHeader = ({ data, onPressEdit, onPressCreate }: Props) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${style.headerProfile}`}>
       <div className={styles.logoAndName}>
         <div>
-          <Image
+          <Image 
             src={data.profilepic || avatar}
             alt="avatar"
-            className={styles.avatar}
+            className={`${styles.avatar} ${style.imgProfile}`}
           />
         </div>
         <div>

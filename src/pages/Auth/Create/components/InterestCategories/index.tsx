@@ -2,7 +2,7 @@ import { Button, Flex, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import TextRaleway from "../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
-
+import styles from "../../../styles.module.css";
 import { Category, SignupPayload } from "../../../../../models/Auth";
 import { getCategories } from "../../../../../services/Category";
 

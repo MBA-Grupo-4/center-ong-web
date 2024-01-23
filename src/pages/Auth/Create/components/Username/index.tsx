@@ -9,7 +9,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import TextRaleway from "../../../../../components/TextRaleway";
-
+import styles from "../../../styles.module.css";
 type Props = {
   onPressBack: () => void;
   onSendData: (username: string, name: string, isOng: boolean) => void;
@@ -112,7 +112,7 @@ const Username: React.FC<Props> = ({ onPressBack, onSendData }) => {
 
       <Flex mt={"5vh"}>
         <TextRaleway fontSize={"large"}>Já tem conta?</TextRaleway>
-        <TextRaleway
+        <TextRaleway className={styles.loginCriar}
           onClick={() => onPressBack()}
           fontSize={"large"}
           ml={"0.4vw"}
