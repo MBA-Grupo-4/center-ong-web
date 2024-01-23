@@ -14,6 +14,8 @@ import { authRepository } from "../repositories/auth.repository";
 import { getUser } from "../services/User";
 import { User } from "../models/User";
 
+import avatar from "../assets/avatar.png";
+
 type AuthProps = {
   getUserData: () => Promise<void>;
   userData: User;
@@ -37,12 +39,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     try {
       const response = await getUser(user.id);
+
+      response.data.profilepic = response.data.profilepic || avatar;
       setUserData(response.data);
+
+      console.log(response.data.profilepic);
       authRepository.setLoggedUser({
         ...response.data,
         access_token: user.access_token,
       });
-      console.log(response.data);
     } catch (err) {
       console.log("err update User", err);
     }

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { getUser } from "../services/User";
 import { useAuth } from "../hooks/auth";
 
+import avatar from "../assets/avatar.png";
+
 const Index: React.FC = () => {
   const navigate = useNavigate();
   const user = authRepository.getLoggedUser();
@@ -12,6 +14,7 @@ const Index: React.FC = () => {
   const loadUserData = async (): Promise<void> => {
     try {
       const response = await getUser(user.id);
+
       setUserData(response.data);
     } catch (err) {
       console.log("err loaduser data", err);

@@ -18,7 +18,7 @@ const MyNGOs = ({ followedNGOS, onClickNGO }: Props) => {
           followedNGOS.map((followed) => (
             <Tooltip label={followed.name}>
               <img
-                src={ongIcon}
+                src={followed.profilepic || ongIcon}
                 alt="ong"
                 width="40"
                 height="40"

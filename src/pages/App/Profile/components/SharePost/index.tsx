@@ -15,6 +15,7 @@ import { BasePost } from "../../../../../models/Feed";
 import TextRaleway from "../../../../../components/TextRaleway";
 import { User } from "../../../../../models/User";
 import { SharedPost } from "../../../../../models/Share";
+import { authRepository } from "../../../../../repositories/auth.repository";
 
 type PostProps = {
   data: SharedPost;
@@ -33,6 +34,7 @@ const SharePost = ({
   onClickUnfollow,
   onPressShare,
 }: PostProps) => {
+  const user = authRepository.getLoggedUser();
   const [comment, setComment] = useState<string>("");
 
   const handleComment = (): void => {
@@ -43,7 +45,12 @@ const SharePost = ({
     <div className={styles.container}>
       <header>
         <div>
-          <img src={ongIcon} alt="ong" width="60" height="60" />
+          <img
+            src={data?.post?.author?.profilepic || ongIcon}
+            alt="ong"
+            width="60"
+            height="60"
+          />
         </div>
         <div>
           <p>{data?.post?.author?.name}</p>
@@ -92,11 +99,12 @@ const SharePost = ({
         data.post.comments.map((comment) => (
           <Flex mt={"3vh"} mb={"2vh"} alignItems={"center"}>
             <Image
-              src={avatarimg}
+              src={comment?.userCommentId?.profilepic || avatarimg}
               alt="mock"
               width={"2vw"}
               height={"2vw"}
               mr={"1vw"}
+              borderRadius={"4vw"}
             />
             <Flex flexDir={"column"}>
               <TextRaleway fontWeight={"bold"}>
@@ -112,11 +120,12 @@ const SharePost = ({
 
       <Flex mt={"3vh"} mb={"2vh"} alignItems={"center"}>
         <Image
-          src={avatarimg}
+          src={user?.profilepic || avatarimg}
           alt="mock"
           width={"2vw"}
           height={"2vw"}
           mr={"1vw"}
+          borderRadius={"4vw"}
         />
         <Input
           placeholder="seu comentário"

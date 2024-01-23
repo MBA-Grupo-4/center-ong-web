@@ -15,6 +15,7 @@ import avatarimg from "../../../../../assets/avatar.png";
 import { BasePost } from "../../../../../models/Feed";
 import TextRaleway from "../../../../../components/TextRaleway";
 import { User } from "../../../../../models/User";
+import { authRepository } from "../../../../../repositories/auth.repository";
 
 type PostProps = {
   data: BasePost;
@@ -37,6 +38,8 @@ const Post = ({
   onClickLike,
   onClickUnlike,
 }: PostProps) => {
+  const user = authRepository.getLoggedUser();
+
   const [comment, setComment] = useState<string>("");
 
   const handleComment = (): void => {
@@ -47,7 +50,12 @@ const Post = ({
     <div className={styles.container}>
       <header>
         <div>
-          <img src={ongIcon} alt="ong" width="60" height="60" />
+          <img
+            src={data.author.profilepic || ongIcon}
+            alt="ong"
+            width="60"
+            height="60"
+          />
         </div>
         <div>
           <p>{data.author?.name}</p>
@@ -102,11 +110,12 @@ const Post = ({
         data.comments.map((comment) => (
           <Flex mt={"3vh"} mb={"2vh"} alignItems={"center"}>
             <Image
-              src={avatarimg}
+              src={comment.userCommentId.profilepic || avatarimg}
               alt="mock"
               width={"2vw"}
               height={"2vw"}
               mr={"1vw"}
+              borderRadius={"4vw"}
             />
             <Flex flexDir={"column"}>
               <TextRaleway
@@ -127,10 +136,11 @@ const Post = ({
 
       <Flex mt={"3vh"} mb={"2vh"} alignItems={"center"}>
         <Image
-          src={avatarimg}
+          src={user?.profilepic || avatarimg}
           alt="mock"
           width={"2vw"}
           height={"2vw"}
+          borderRadius={"4vw"}
           mr={"1vw"}
         />
         <Input

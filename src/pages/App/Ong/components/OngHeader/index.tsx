@@ -25,7 +25,11 @@ const OngHeader = ({
     <div className={styles.container}>
       <div className={styles.logoAndName}>
         <div>
-          <img src={ongLogo} alt="logo" className={styles.logo} />
+          <img
+            src={data?.profilepic || ongLogo}
+            alt="logo"
+            className={styles.logo}
+          />
         </div>
         <div>
           <p>{data?.name}</p>

@@ -7,11 +7,12 @@
   font-weight: 700;
 }
 
-.logout {
-  margin-left: 20px;
+.profile {
+  border-radius: 80px;
   cursor: pointer;
 }
 
-.pointer {
+.logout {
+  margin-left: 20px;
   cursor: pointer;
 }

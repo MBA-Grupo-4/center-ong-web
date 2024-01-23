@@ -15,7 +15,12 @@ const NGOSugestions = ({ suggestedNGOS, onClickNGO }: Props) => {
         {suggestedNGOS.map((suggestion) => (
           <li>
             <div onClick={() => onClickNGO(suggestion.id)}>
-              <img src={ongIcon} alt="ong" width="32" height="32" />
+              <img
+                src={suggestion.profilepic || ongIcon}
+                alt="ong"
+                width="32"
+                height="32"
+              />
             </div>
             <div>
               <p>{suggestion.name}</p>

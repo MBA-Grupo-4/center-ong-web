@@ -55,9 +55,8 @@ const Profile = () => {
     if (user) {
       try {
         const response = await getSharedPosts(user?.id);
-        data = response.data;
 
-        setPostsShared(data);
+        setPostsShared(response.data);
       } catch (err) {
         console.log("load shared Post err", err);
       }

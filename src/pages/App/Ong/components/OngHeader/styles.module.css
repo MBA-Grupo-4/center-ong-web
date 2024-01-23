@@ -1,6 +1,7 @@
 .logo {
   width: 142px !important;
   height: 142px !important;
+  border-radius: 300px;
 }
 
 .logoAndName {

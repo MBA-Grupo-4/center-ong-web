@@ -44,10 +44,11 @@ const NavTabs = ({
           {followingOngs.map((followed) => (
             <Tooltip label={followed.name}>
               <img
-                src={ongLogo}
+                src={followed.profilepic || ongLogo}
                 alt="ong"
                 width="40"
                 height="40"
+                className={styles.followedOng}
                 onClick={() => onClickNGO(followed.id)}
               />
             </Tooltip>
