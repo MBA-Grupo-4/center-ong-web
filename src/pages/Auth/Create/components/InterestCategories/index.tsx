@@ -4,7 +4,7 @@ import TextRaleway from "../../../../../components/TextRaleway";
 import CategoryItem from "./CategoryItem";
 import { categories } from "../../../../../config/category";
 import { Category, SignupPayload } from "../../../../../models/Auth";
-
+import styles from "../../../styles.module.css";
 type Props = {
   onPressStep: (type: "next" | "previous") => void;
   onPressNext: (categories: Category[]) => void;
@@ -54,8 +54,8 @@ const InterestCategories: React.FC<Props> = ({
   };
 
   return (
-    <Flex flexDir={"column"} w={"100%"}>
-      <TextRaleway
+    <Flex className={styles.animationLogin} flexDir={"column"} w={"100%"}>
+      <TextRaleway 
         fontWeight={"bold"}
         color={"custom.gray100"}
         fontSize={"18"}
@@ -66,7 +66,7 @@ const InterestCategories: React.FC<Props> = ({
         Categorias de interesse
       </TextRaleway>
 
-      <TextRaleway
+      <TextRaleway width={"85%"}
         fontWeight={"regular"}
         color={"custom.gray100"}
         fontSize={"18"}

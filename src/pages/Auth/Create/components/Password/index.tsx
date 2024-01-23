@@ -1,7 +1,7 @@
 import { Button, Flex, Input, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TextRaleway from "../../../../../components/TextRaleway";
-
+import styles from "../../../styles.module.css";
 type Props = {
   onPressFinish: (data: string) => void;
   isLoading: boolean;
@@ -29,7 +29,7 @@ const Password: React.FC<Props> = ({ onPressFinish, isLoading }) => {
 
   return (
     <Flex flexDir={"column"} w={"100%"}>
-      <TextRaleway
+      <TextRaleway 
         fontWeight={"bold"}
         color={"custom.gray100"}
         fontSize={"18"}

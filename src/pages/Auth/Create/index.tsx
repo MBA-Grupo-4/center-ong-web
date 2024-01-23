@@ -22,6 +22,8 @@ import { postCreateUser } from "../../../services/User";
 import DefaultContainer from "../../../components/DefaultContainer";
 import { useNavigate } from "react-router-dom";
 
+import styles from "../styles.module.css";
+
 const Create: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -97,9 +99,9 @@ const Create: React.FC = () => {
   };
 
   return (
-    <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
-      <Image src={LoginImage} />
-      <Flex
+    <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"} >
+      <Image className={styles.loginImg2} src={LoginImage} />
+      <Flex className={styles.animationLogin}
         flexDir={"column"}
         width={"50%"}
         marginLeft={"5vw"}

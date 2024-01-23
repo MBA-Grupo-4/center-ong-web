@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import TextRaleway from "../../../../../components/TextRaleway";
 import { phoneMask } from "../../../../../utils/masks";
 import { PersonalDataPayload, SignupPayload } from "../../../../../models/Auth";
+import styles from "../../../styles.module.css";
 
 type Props = {
   onPressStep: (type: "next" | "previous") => void;
@@ -52,9 +53,9 @@ const PersonalData: React.FC<Props> = ({
     onPressStep("next");
     handleData(data);
   };
-
-  return (
-    <Flex flexDir={"column"} w={"100%"}>
+  
+  return ( 
+    <Flex className={styles.animationLogin} flexDir={"column"} w={"100%"}> 
       <TextRaleway
         fontWeight={"bold"}
         color={"custom.gray100"}
@@ -124,10 +125,10 @@ const PersonalData: React.FC<Props> = ({
       )}
 
       <Flex flexDir={"column"} w={"70%"} mb={"2vh"} mt={"2vh"}>
-        <TextRaleway color={"custom.blue200"} mb={"1vh"}>
+        <TextRaleway  color={"custom.blue200"} mb={"1vh"}>
           Gênero
         </TextRaleway>
-        <Select
+        <Select className={styles.selecionarLogin}
           placeholder="Selecione uma das opções"
           onChange={(e) => setGender(e.target.value)}
         >

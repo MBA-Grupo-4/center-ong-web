@@ -10,6 +10,8 @@ import LoginImage from "../../../assets/login-image.png";
 import { postResetPassword } from "../../../services/User";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import styles from "../styles.module.css";
+
 const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -56,8 +58,8 @@ const ChangePassword: React.FC = () => {
 
   return (
     <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
-      <Image src={LoginImage} />
-      <Flex
+      <Image className={styles.loginImg2} src={LoginImage} />
+      <Flex className={styles.animationLogin}
         flexDir={"column"}
         width={"50%"}
         marginLeft={"5vw"}

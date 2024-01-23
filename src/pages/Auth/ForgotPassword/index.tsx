@@ -9,6 +9,7 @@ import LoginImage from "../../../assets/login-image.png";
 
 import { postForgotPassword } from "../../../services/User";
 
+import styles from "../styles.module.css";
 const ForgotPassword: React.FC = () => {
   const toast = useToast();
   const [email, setEmail] = useState<string>("");
@@ -36,8 +37,8 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
-      <Image src={LoginImage} />
-      <Flex
+      <Image className={styles.loginImg2} src={LoginImage} />
+      <Flex className={styles.animationLogin}
         flexDir={"column"}
         width={"50%"}
         marginLeft={"5vw"}

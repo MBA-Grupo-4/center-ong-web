@@ -7,7 +7,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-
 import TextRaleway from "../../../components/TextRaleway";
 import LogoIcon from "../../../assets/logo.png";
 import { getUser, postLogin } from "../../../services/User";
@@ -17,7 +16,7 @@ import DefaultContainer from "../../../components/DefaultContainer";
 
 import LoginImage from "../../../assets/login-image.png";
 import { useNavigate } from "react-router-dom";
-
+import styles from "../styles.module.css";
 const Login: React.FC = () => {
   const toast = useToast();
   const navigate = useNavigate();
@@ -85,9 +84,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <DefaultContainer flexDir={"row"} alignItems={"center"} height={"100vh"}>
-      <Image src={LoginImage} />
-      <Flex
+    <DefaultContainer   flexDir={"row"} alignItems={"center"} height={"100vh"}>
+      <Image className={styles.loginImg} src={LoginImage} />
+      <Flex className={styles.animationLogin}
         flexDir={"column"}
         width={"50%"}
         marginLeft={"5vw"}
@@ -97,7 +96,7 @@ const Login: React.FC = () => {
 
         <Flex flexDir={"column"} w={"70%"} mb={"2vh"}>
           <TextRaleway color={"custom.blue200"}>E-mail</TextRaleway>
-          <Input
+          <Input className={styles.inputLogin}
             h={"5vh"}
             placeholder="seu e-mail"
             onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +107,7 @@ const Login: React.FC = () => {
         <Flex flexDir={"column"} w={"70%"}>
           <TextRaleway color={"custom.blue200"}>Senha</TextRaleway>
           <InputGroup>
-            <Input
+            <Input className={styles.inputLogin}
               h={"5vh"}
               placeholder="sua senha"
               type="password"
@@ -117,7 +116,7 @@ const Login: React.FC = () => {
           </InputGroup>
         </Flex>
 
-        <TextRaleway
+        <TextRaleway className={styles.loginPassword}
           onClick={() => handleForgotPassword()}
           w={"70%"}
           textAlign={"end"}
@@ -134,6 +133,7 @@ const Login: React.FC = () => {
         </TextRaleway>
 
         <Button
+        className={styles.loginButton}
           w={"70%"}
           bg="custom.blue100"
           height={"5vh"}
@@ -143,12 +143,12 @@ const Login: React.FC = () => {
           onClick={signIn}
           isLoading={loading}
         >
-          <TextRaleway color="white">Entrar</TextRaleway>
+          <TextRaleway  color="white">Entrar</TextRaleway>
         </Button>
 
-        <Flex mt={"5vh"}>
+        <Flex mt={"5vh"}> 
           <TextRaleway fontSize={"large"}>Não tem conta?</TextRaleway>
-          <TextRaleway
+          <TextRaleway className={styles.loginCriar}
             onClick={() => handleSignupClick()}
             fontSize={"large"}
             ml={"0.4vw"}
