@@ -25,7 +25,7 @@ type PostProps = {
   onPressShare: (postId: number) => void;
 };
 
-const Post = ({
+const SharePost = ({
   data,
   onClickComment,
   isFollowing,
@@ -46,14 +46,14 @@ const Post = ({
           <img src={ongIcon} alt="ong" width="60" height="60" />
         </div>
         <div>
-          <p>{data.post.author.name}</p>
-          <p>{data.post.content}</p>
+          <p>{data?.post?.author?.name}</p>
+          <p>{data?.post?.content}</p>
         </div>
       </header>
 
-      {data.post.image && (
+      {data?.post?.image && (
         <div className={styles.body}>
-          <img src={data.post.image} alt="mock" />
+          <img src={data?.post?.image} alt="mock" />
         </div>
       )}
 
@@ -88,7 +88,7 @@ const Post = ({
         </div>
       </div>
 
-      {data.post.comments ? (
+      {data?.post?.comments ? (
         data.post.comments.map((comment) => (
           <Flex mt={"3vh"} mb={"2vh"} alignItems={"center"}>
             <Image
@@ -100,7 +100,7 @@ const Post = ({
             />
             <Flex flexDir={"column"}>
               <TextRaleway fontWeight={"bold"}>
-                {comment.userCommentId.name}
+                {comment?.userCommentId?.name}
               </TextRaleway>
               <TextRaleway>{comment.text}</TextRaleway>
             </Flex>
@@ -148,4 +148,4 @@ const Post = ({
   );
 };
 
-export default Post;
+export default SharePost;

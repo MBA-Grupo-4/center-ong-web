@@ -19,67 +19,56 @@ import { UserEditPayload } from "../../../../../models/User";
 import { patchUpdateUser } from "../../../../../services/User";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../../firebase";
+import { CreatePostPayload } from "../../../../../models/Feed";
+import { postCreatePost } from "../../../../../services/Feed";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const CreatePostModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const user = authRepository.getLoggedUser();
 
+  const [content, setContent] = useState("");
+  const [postPicture, setPostPicture] = useState<File>("");
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [aboutme, setAboutme] = useState("");
-  const [profilePicture, setProfilePicture] = useState<File>();
-
-  useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setAboutme(user.aboutme);
-    }
-  }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event?.target?.files[0];
-      setProfilePicture(file);
+      setPostPicture(file);
     }
   };
 
-  const handleEditProfile = async (): Promise<void> => {
-    if (!user) return;
-    setLoading(true);
-    const data: UserEditPayload = {
-      id: user.id,
-    };
-
-    if (name) {
-      data.name = name;
+  const handleCreatePost = async (): Promise<void> => {
+    if (!user) {
+      return;
     }
+    const data: CreatePostPayload = {
+      userId: user.id,
+      content,
+    };
+    setLoading(true);
 
-    if (aboutme) {
-      data.aboutme = aboutme;
+    if (content.length < 1) {
+      return;
     }
 
     try {
-      if (profilePicture) {
-        const storageRef = ref(storage, `images/${profilePicture.name}`);
-        const uploadTask = await uploadBytesResumable(
-          storageRef,
-          profilePicture
-        );
+      if (postPicture) {
+        const storageRef = ref(storage, `images/${postPicture.name}`);
+        const uploadTask = await uploadBytesResumable(storageRef, postPicture);
         await getDownloadURL(uploadTask.ref).then((imageUrl) => {
-          data.profilepic = imageUrl;
+          data.image = imageUrl;
         });
       }
-      console.log(data);
-      await patchUpdateUser(data);
+      await postCreatePost(data);
 
       setLoading(false);
       location.reload();
     } catch (err) {
-      console.log("err edit profile", err);
+      console.log("err create psot", err);
       setLoading(false);
     }
   };
@@ -89,34 +78,24 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
       <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
         <ModalOverlay onClick={onClose} />
         <ModalContent>
-          <ModalHeader fontWeight={"bold"}>Editar Perfil</ModalHeader>
+          <ModalHeader fontWeight={"bold"}>Criar Publicação</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex flexDir={"column"} w={"100%"} mb={"2vh"} mt={"2vh"}>
               <TextRaleway color={"custom.blue200"} mb={"1vh"}>
                 Nome
               </TextRaleway>
-              <Input
-                h={"5vh"}
-                placeholder="Seu nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Flex>
-            <Flex flexDir={"column"} w={"100%"} mb={"2vh"} mt={"2vh"}>
-              <TextRaleway color={"custom.blue200"} mb={"1vh"}>
-                Sobre mim
-              </TextRaleway>
               <Textarea
                 h={"5vh"}
-                placeholder="Sobre você"
-                value={aboutme}
-                onChange={(e) => setAboutme(e.target.value)}
+                placeholder="Conteúdo da publicação"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
               />
             </Flex>
+
             <Flex flexDir={"column"} w={"100%"} mb={"2vh"} mt={"2vh"}>
               <TextRaleway color={"custom.blue200"} mb={"1vh"}>
-                Foto de perfil
+                Foto da publicação
               </TextRaleway>
               <Input
                 h={"5vh"}
@@ -132,14 +111,14 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
           <ModalFooter>
             <Button
-              bg="custom.blue100"
+              bg="custom.purple100"
               _hover={{
-                bg: "custom.blue200",
+                bg: "custom.purple200",
               }}
-              onClick={handleEditProfile}
+              onClick={handleCreatePost}
               isLoading={loading}
             >
-              <TextRaleway color="white">Editar Perfil</TextRaleway>
+              <TextRaleway color="white">Criar Publicação</TextRaleway>
             </Button>
             <Button variant="ghost" onClick={onClose}>
               Cancelar
@@ -151,4 +130,4 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose }) => {
   );
 };
 
-export default EditModal;
+export default CreatePostModal;

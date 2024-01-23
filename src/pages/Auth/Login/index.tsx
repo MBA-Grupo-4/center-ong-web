@@ -17,10 +17,12 @@ import DefaultContainer from "../../../components/DefaultContainer";
 
 import LoginImage from "../../../assets/login-image.png";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/auth";
 
 const Login: React.FC = () => {
   const toast = useToast();
   const navigate = useNavigate();
+  const { setUserData } = useAuth();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -52,6 +54,8 @@ const Login: React.FC = () => {
       data.following = userData.data.following;
 
       authRepository.setLoggedUser(data);
+
+      setUserData(data);
 
       navigate("/feed");
       toast({

@@ -3,33 +3,39 @@ import styles from "./styles.module.css";
 import ongLogo from "../../../../../assets/ong-logo.svg";
 import { User } from "../../../../../models/User";
 import { Tooltip } from "@chakra-ui/react";
+import { authRepository } from "../../../../../repositories/auth.repository";
 
 type NavTabsProps = {
   setActivePage: React.Dispatch<React.SetStateAction<ActivePages>>;
   followingOngs: User[];
   onClickNGO: (ongId: number) => void;
+  onClickPostRender: (type: "shared" | "created") => void;
 };
 
 const NavTabs = ({
   setActivePage,
   followingOngs,
   onClickNGO,
+  onClickPostRender,
 }: NavTabsProps) => {
+  const user = authRepository.getLoggedUser();
+
   return (
     <nav className={styles.container}>
       <ul>
         <li role="button" onClick={() => setActivePage("about")}>
           Sobre
         </li>
-        {/* <li role="button" onClick={() => setActivePage("photos")}>
-          Fotos
+        <li role="button" onClick={() => onClickPostRender("shared")}>
+          Posts Compartilhados
         </li>
-        <li role="button" onClick={() => setActivePage("videos")}>
-          Videos
-        </li>
-        <li role="button" onClick={() => setActivePage("contribuitions")}>
-          Contribuições
-        </li> */}
+        {user?.isOng ? (
+          <li role="button" onClick={() => onClickPostRender("created")}>
+            Posts Criados
+          </li>
+        ) : (
+          <></>
+        )}
       </ul>
 
       <div className={styles.ongs}>
